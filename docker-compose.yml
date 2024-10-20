@@ -1,0 +1,36 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: mern-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URI=${MONGO_URI}
+      - PORT=${PORT}
+      # - SECRET=${SECRET}
+    depends_on:
+      - mongo
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: mern-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_PROD_API_URL=${REACT_APP_PROD_API_URL} # Make sure it's prefixed with REACT_APP_
+    volumes:
+      - ./client:/usr/src/app
+    command: npm start
+
+  mongo:
+    image: mongo:latest
+    container_name: mern-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
