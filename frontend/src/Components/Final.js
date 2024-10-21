@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import BaseUrl from '../BaseUrl';
 
 const Final = () => {
     const navigate = useNavigate();
@@ -11,7 +12,7 @@ const Final = () => {
         setLoading(true); // Set loading to true when button is clicked
 
         // Fetch the route distribution logic from the server
-        axios.get('http://localhost:5000/route')
+        axios.get(`${BaseUrl}/route`)
             .then((response) => {
                 const targetRoute = response.data.route;
 

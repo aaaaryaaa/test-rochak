@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import BaseUrl from '../BaseUrl';
 
 const ProlificId = () => {
     const [prolificId, setProlificId] = useState(''); // Replace with auto-fill logic if needed
@@ -10,7 +11,7 @@ const ProlificId = () => {
     const handleNext = async () => {
         try {
             // Call the API to create a user
-            const response = await axios.post('http://localhost:5000/api/users/create', { prolificId });
+            const response = await axios.post(`${BaseUrl}/api/users/create`, { prolificId });
             console.log(response.data); // You can store user data or show a message if needed
             
             localStorage.setItem('prolificId', prolificId);

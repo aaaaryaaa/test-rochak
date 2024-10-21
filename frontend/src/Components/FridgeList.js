@@ -4,6 +4,7 @@ import './FridgeList.css';
 import FridgeDetails from './FridgeDetails';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../Context/AppContext';
+import BaseUrl from '../BaseUrl';
 
 const fridgeData = [{
     name: 'coolnest1',
@@ -143,7 +144,7 @@ const FridgeList = () => {
   useEffect(() => {
     const fetchFridges = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/fridges');
+        const response = await fetch(`${BaseUrl}/api/fridges`);
         if (!response.ok) {
           throw new Error('Failed to fetch fridges');
         }

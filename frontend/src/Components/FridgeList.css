@@ -24,16 +24,6 @@
     margin-bottom: 8px;
 }
 
-/* .fridge-details-popup {
-    position: fixed;
-    top: 30%;
-    left: 30%;
-    z-index: 10;
-    background: white;
-    border: 1px solid #ddd;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    padding: 10px;
-} */
 .fridge-details-popup {
     position: fixed;
     top: 50%;

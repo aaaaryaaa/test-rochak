@@ -4,9 +4,10 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-app.use(cors({
-    origin: 'http://localhost:3000' // Replace with your frontend URL
-}));
+app.use(cors());
+// {
+//   origin: 'http://localhost:3000' // Replace with your frontend URL
+// }
 
 app.use(express.json());
 
@@ -45,13 +46,33 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: ""
     },
-    selectedOptions: {
-        type: [String],
-        default: [] // Array to store selected options
+    selectedOption: {
+        type: String,
+        default: ""
     }
 });
 
 const User = mongoose.model('User', userSchema);
+
+// Route to get user by prolificId
+app.get('/api/users/:prolificId', async (req, res) => {
+  const { prolificId } = req.params;
+
+  try {
+    // Find the user by prolificId
+    const user = await User.findOne({ prolificId });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json({ user });
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 // User creation route
 app.post('/api/users/create', async (req, res) => {
@@ -73,6 +94,29 @@ app.post('/api/users/create', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
+// User update route
+app.patch('/api/users/update', async (req, res) => {
+  const { prolificId, endTime, selectedOption } = req.body;
+
+  try {
+    const user = await User.findOneAndUpdate(
+      { prolificId },
+      { endTime, selectedOption },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json({ message: 'User updated successfully', user });
+  } catch (error) {
+    console.error('Error updating user:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 app.patch('/api/users/update-page', async (req, res) => {
     const { prolificId, page } = req.body;

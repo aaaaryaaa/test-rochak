@@ -12,6 +12,8 @@ import FridgeList from './Components/FridgeList';
 import FridgeDetails from './Components/FridgeDetails';
 import FridgeComparison from './Components/FridgeComparison';
 import { AppProvider } from './Context/AppContext';
+import Disclaimer from './Components/Disclaimer';
+import RestOfSurvey from './Components/RestOfSurvey';
 
 const App = () => {
     // const [route, setRoute] = useState('');
@@ -47,6 +49,8 @@ const App = () => {
                     <Route path="/final" element={<Final />} />
                     <Route path="/fridgelist" element={<FridgeList />} />
                     <Route path="/fridgecomparison" element={<FridgeComparison />} />
+                    <Route path="/disclaimer" element={<Disclaimer />} />
+                    <Route path="/restofsurvey" element={<RestOfSurvey />} />
                 </Routes>
             </Router>
         </AppProvider>
