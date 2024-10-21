@@ -1,0 +1,64 @@
+/* FridgeList.css */
+.fridge-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    padding: 20px;
+    position: relative;
+}
+
+.fridge-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    height: 16rem;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.fridge-image {
+    /* width: 100%; */
+    /* max-height: 100px; */
+    object-fit: contain;
+    height: 10rem;
+    margin-bottom: 8px;
+}
+
+/* .fridge-details-popup {
+    position: fixed;
+    top: 30%;
+    left: 30%;
+    z-index: 10;
+    background: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+} */
+.fridge-details-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    background: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+}
+
+
+.fridge-details {
+    font-family: Arial, sans-serif;
+    color: #333;
+    font-size: 12px;
+}
+
+.fridge-rating img {
+    height: 2rem;
+}
+
+.fridge-price {
+    font-size: 14px;
+    font-weight: bold;
+    color: #007BFF;
+}

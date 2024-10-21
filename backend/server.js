@@ -95,6 +95,127 @@ app.patch('/api/users/update-page', async (req, res) => {
     }
 });
 
+//Fridge Schema
+const fridgeSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    fridgeImage: {
+      type: String,
+      required: true,
+    },
+    reviewImage: {
+      type: String,
+      required: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+    },
+    dimensions: {
+      height: { type: Number, required: true },
+      width: { type: Number, required: true },
+      depth: { type: Number, required: true },
+    },
+    coolingSpace: {
+      type: Number,
+      required: true,
+    },
+    freezerSpace: {
+      type: Number,
+      required: true,
+    },
+    totalSpace: {
+      type: Number,
+      required: true,
+    },
+    productWeight: {
+      type: Number,
+      required: true,
+    },
+    energyConsumption: {
+      type: Number,
+      required: true,
+    },
+    iceMaker: {
+      type: Boolean,
+      required: true,
+    },
+    garageReady: {
+      type: Boolean,
+      required: true,
+    },
+    internalWaterDispenser: {
+      type: Boolean,
+      required: true,
+    },
+    warranty: {
+      type: String,
+      required: true,
+    },
+  });
+
+const Fridge = mongoose.model('Fridge', fridgeSchema);
+
+app.get('/api/fridges', async (req, res) => {
+    try {
+      const fridges = await Fridge.find();
+      res.status(200).json(fridges);
+    } catch (error) {
+      res.status(500).json({ message: 'Error retrieving fridges', error });
+    }
+  });
+
+app.post('/api/fridges/create', async (req, res) => {
+    const fridgeData = req.body;
+
+    const newFridge = new Fridge({
+        name: fridgeData.name,
+        fridgeImage: fridgeData.fridgeImage,
+        reviewImage: fridgeData.reviewImage,
+        price: fridgeData.price,
+        dimensions: {
+        height: fridgeData.dimensions.height,
+        width: fridgeData.dimensions.width,
+        depth: fridgeData.dimensions.depth,
+        },
+        coolingSpace: fridgeData.coolingSpace,
+        freezerSpace: fridgeData.freezerSpace,
+        totalSpace: fridgeData.totalSpace,
+        productWeight: fridgeData.productWeight,
+        energyConsumption: fridgeData.energyConsumption,
+        iceMaker: fridgeData.iceMaker,
+        garageReady: fridgeData.garageReady,
+        internalWaterDispenser: fridgeData.internalWaterDispenser,
+        warranty: fridgeData.warranty,
+    });
+
+    try {
+        const savedFridge = await newFridge.save();
+        res.status(201).json(savedFridge);
+    } catch (error) {
+        res.status(400).json({ message: 'Error adding fridge', error });
+    }
+});
+
+// Add a new endpoint to get specific fridges by name array
+app.post('/api/fridges/compare', async (req, res) => {
+    const { names } = req.body; // Expecting the names as an array in the request body
+  
+    if (!Array.isArray(names) || names.length === 0) {
+      return res.status(400).json({ message: 'Fridge names must be a non-empty array' });
+    }
+  
+    try {
+      const fridges = await Fridge.find({ name: { $in: names } });
+      res.status(200).json(fridges);
+    } catch (error) {
+      res.status(500).json({ message: 'Error retrieving fridges', error });
+    }
+  });
+  
+
 // Visit schema for tracking page visits
 const visitSchema = new mongoose.Schema({
     page: String,

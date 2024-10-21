@@ -8,6 +8,10 @@ import InfoPage1 from './Components/InfoPage1';
 import InfoPage2 from './Components/InfoPage2';
 import Consent from './Components/Consent';
 import Final from './Components/Final';
+import FridgeList from './Components/FridgeList';
+import FridgeDetails from './Components/FridgeDetails';
+import FridgeComparison from './Components/FridgeComparison';
+import { AppProvider } from './Context/AppContext';
 
 const App = () => {
     // const [route, setRoute] = useState('');
@@ -28,20 +32,24 @@ const App = () => {
     // if (!route) return <div>Loading...</div>;
 
     return (
-        <Router>
-            <Routes>
-                {/* <Route path="/" element={<Homepage />} /> */}
-                <Route path="/page1" element={<Page1 />} />
-                <Route path="/page2" element={<Page2 />} />
-                <Route path="/page3" element={<Page3 />} />
-                <Route path="*" element={<Navigate to="/" replace />} />
-                <Route path="/" element={<Consent />} />
-                <Route path="/prolific-id" element={<ProlificId />} />
-                <Route path="/info1" element={<InfoPage1 />} />
-                <Route path="/info2" element={<InfoPage2 />} />
-                <Route path="/final" element={<Final />} />
-            </Routes>
-        </Router>
+        <AppProvider>
+            <Router>
+                <Routes>
+                    {/* <Route path="/" element={<Homepage />} /> */}
+                    <Route path="/page1" element={<Page1 />} />
+                    <Route path="/page2" element={<Page2 />} />
+                    <Route path="/page3" element={<Page3 />} />
+                    <Route path="*" element={<Navigate to="/" replace />} />
+                    <Route path="/" element={<Consent />} />
+                    <Route path="/prolific-id" element={<ProlificId />} />
+                    <Route path="/info1" element={<InfoPage1 />} />
+                    <Route path="/info2" element={<InfoPage2 />} />
+                    <Route path="/final" element={<Final />} />
+                    <Route path="/fridgelist" element={<FridgeList />} />
+                    <Route path="/fridgecomparison" element={<FridgeComparison />} />
+                </Routes>
+            </Router>
+        </AppProvider>
     );
 };
 
