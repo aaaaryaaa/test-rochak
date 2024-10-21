@@ -10,7 +10,7 @@ app.use(cors({
 
 app.use(express.json());
 
-//middleware
+// Middleware
 app.use((req, res, next) => {
     console.log(`[${new Date().toISOString()}] ${req.method} request to ${req.url}`);
     next(); // Pass the request to the next middleware/route handler
@@ -26,6 +26,76 @@ mongoose.connect(process.env.MONGO_URI, {
     console.error('Error connecting to MongoDB Atlas:', error);
 });
 
+// User schema
+const userSchema = new mongoose.Schema({
+    prolificId: {
+        type: String,
+        required: true,
+        unique: true // Ensure each ID is unique
+    },
+    startTime: {
+        type: Date,
+        default: Date.now // Automatically set to the current date/time
+    },
+    endTime: {
+        type: Date,
+        default: Date.now // This can be updated later
+    },
+    page: {
+        type: String,
+        default: ""
+    },
+    selectedOptions: {
+        type: [String],
+        default: [] // Array to store selected options
+    }
+});
+
+const User = mongoose.model('User', userSchema);
+
+// User creation route
+app.post('/api/users/create', async (req, res) => {
+    const { prolificId } = req.body;
+
+    try {
+        // Check if user already exists
+        let user = await User.findOne({ prolificId });
+
+        if (!user) {
+            // Create a new user if not found
+            user = new User({ prolificId });
+            await user.save();
+        }
+
+        res.status(201).json({ message: 'User created successfully', user });
+    } catch (error) {
+        console.error('Error creating user:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+app.patch('/api/users/update-page', async (req, res) => {
+    const { prolificId, page } = req.body;
+
+    try {
+        const user = await User.findOneAndUpdate(
+            { prolificId },
+            { page },
+            { new: true }
+        );
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        res.status(200).json({ message: 'Page updated successfully', user });
+    } catch (error) {
+        console.error('Error updating page:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Visit schema for tracking page visits
 const visitSchema = new mongoose.Schema({
     page: String,
     count: { type: Number, default: 0 },

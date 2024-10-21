@@ -1,37 +1,45 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import Homepage from './Pages/Homepage';
 import Page1 from './Pages/Page1';
 import Page2 from './Pages/Page2';
 import Page3 from './Pages/Page3';
+import ProlificId from './Components/ProlificId';
+import InfoPage1 from './Components/InfoPage1';
+import InfoPage2 from './Components/InfoPage2';
+import Consent from './Components/Consent';
+import Final from './Components/Final';
 
 const App = () => {
-    const [route, setRoute] = useState('');
+    // const [route, setRoute] = useState('');
 
-    useEffect(() => {
-        console.log("Sending GET request to determine the route");
+    // useEffect(() => {
+    //     console.log("Sending GET request to determine the route");
 
-        axios.get('http://localhost:5000/route')
-            .then((response) => {
-                console.log("Response received:", response.data);
-                setRoute(response.data.route);
-            })
-            .catch((error) => {
-                console.error("Error determining the route:", error);
-            });
-    }, []);
+    //     axios.get('http://localhost:5000/route')
+    //         .then((response) => {
+    //             console.log("Response received:", response.data);
+    //             setRoute(response.data.route);
+    //         })
+    //         .catch((error) => {
+    //             console.error("Error determining the route:", error);
+    //         });
+    // }, []);
 
-    if (!route) return <div>Loading...</div>;
+    // if (!route) return <div>Loading...</div>;
 
     return (
         <Router>
             <Routes>
-                <Route path="/" element={<Homepage />} />
+                {/* <Route path="/" element={<Homepage />} /> */}
                 <Route path="/page1" element={<Page1 />} />
                 <Route path="/page2" element={<Page2 />} />
                 <Route path="/page3" element={<Page3 />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
+                <Route path="/" element={<Consent />} />
+                <Route path="/prolific-id" element={<ProlificId />} />
+                <Route path="/info1" element={<InfoPage1 />} />
+                <Route path="/info2" element={<InfoPage2 />} />
+                <Route path="/final" element={<Final />} />
             </Routes>
         </Router>
     );
