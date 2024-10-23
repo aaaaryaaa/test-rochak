@@ -17,7 +17,7 @@ const Final = () => {
                 const targetRoute = response.data.route;
 
                 // Make a PATCH request to update the user's page field
-                axios.patch('http://localhost:5000/api/users/update-page', {
+                axios.patch(`${BaseUrl}/api/users/update-page`, {
                     prolificId: prolificId,
                     page: targetRoute
                 })
