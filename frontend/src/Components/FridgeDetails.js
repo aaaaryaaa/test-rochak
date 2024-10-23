@@ -3,8 +3,8 @@ import React from 'react';
 
 const FridgeDetails = ({ fridge }) => {
     return (
-        <div className="fridge-card p-4 border rounded-lg shadow-md mb-4 flex justify-around w-[40rem] h-[22rem]">
-            <img src={fridge.fridgeImage} alt="Fridge" className="m-4" />
+        <div className="fixed bottom-10 fridge-card p-4 border rounded-lg shadow-md mb-4 flex justify-around w-[full] h-[full]">
+            <img src={fridge.fridgeImage} alt="Fridge" className="m-4 h-[20rem]" />
             <div>
                 <p className='text-lg font-bold'>{fridge.name.toUpperCase()}</p>
                 <img src={fridge.reviewImage} alt="Review" className="h-[2rem]" />
