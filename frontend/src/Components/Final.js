@@ -12,7 +12,7 @@ const Final = () => {
         setLoading(true); // Set loading to true when button is clicked
 
         // Fetch the route distribution logic from the server
-        axios.get(`${BaseUrl}/route`)
+        axios.get(`${BaseUrl}/api/route`)
             .then((response) => {
                 const targetRoute = response.data.route;
 

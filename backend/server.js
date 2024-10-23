@@ -282,7 +282,7 @@ const initializeVisits = async () => {
 initializeVisits();
 
 // API endpoint to determine the route
-app.get('/route', async (req, res) => {
+app.get('/api/route', async (req, res) => {
     try {
         // Get the page with the minimum count
         const visit = await Visit.find().sort({ count: 1 }).limit(1);

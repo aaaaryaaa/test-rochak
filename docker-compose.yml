@@ -2,7 +2,6 @@ services:
   backend:
     build:
       context: ./backend
-    image: aaaaryaaa/randomising-backend:v1.0
     ports:
       - "5000:5000"
     environment:
@@ -13,7 +12,6 @@ services:
   frontend:
     build:
       context: ./frontend
-    image: aaaaryaaa/randomising-frontend:v1.0
     ports:
       - "3000:3000"
     environment:
@@ -30,5 +28,5 @@ services:
   #   volumes:
   #     - mongo-data:/data/db
 
-volumes:
-  mongo-data:
+# volumes:
+#   mongo-data:
