@@ -17,7 +17,7 @@ const ProlificId = () => {
             localStorage.setItem('prolificId', prolificId);
 
             // Navigate to the next page after successful user creation
-            navigate('/info1');
+            navigate('/captcha');
         } catch (error) {
             console.error('Error creating user:', error);
             alert('There was an error creating your user. Please try again.'); // Optionally handle errors gracefully

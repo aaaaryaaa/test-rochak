@@ -68,69 +68,14 @@ const fridgeData = [{
     warranty: '1 year'
 }];
 
-// const FridgeList = () => {
-//     const [hoveredFridge, setHoveredFridge] = useState(null);
-//     const [fridges, setFridges] = useState(fridgeData);
-//     const [loading, setLoading] = useState(true);
-//     const [error, setError] = useState(null);
-  
-//     useEffect(() => {
-//       const fetchFridges = async () => {
-//         try {
-//           const response = await fetch('http://localhost:5000/api/fridges');
-//           if (!response.ok) {
-//             throw new Error('Failed to fetch fridges');
-//           }
-//           const data = await response.json();
-//           setFridges(data);
-//           console.log(data);
-//         } catch (error) {
-//           setError(error.message);
-//         } finally {
-//           setLoading(false);
-//         }
-//       };
-  
-//       fetchFridges();
-//     }, []);
-  
-//     if (loading) return <p>Loading...</p>;
-//     if (error) return <p>Error: {error}</p>;
-  
-//     return (
-//       <div className="fridge-list">
-//         {fridges.map((fridge, index) => (
-//           <div
-//             key={index}
-//             className="fridge-item flex justify-around p-3"
-//           >
-//             <img src={fridge.fridgeImage} alt="Refrigerator" className="fridge-image" />
-//             <div className="fridge-details flex-col gap-4"
-//             onMouseEnter={() => setHoveredFridge(fridge)}
-//             onMouseLeave={() => setHoveredFridge(null)}>
-//               <p>{fridge.name}</p>
-//               <p className="fridge-price">${fridge.price}</p>
-//               <div className="fridge-rating">
-//                 <img src={fridge.reviewImage} alt="Rating" />
-//               </div>
-//               <h3>{fridge.totalSpace} Cu. Ft. Refrigerator</h3>
-//               <p>Cooling space: {fridge.coolingSpace} Cu. Ft.</p>
-//               <p>Freezer space: {fridge.freezerSpace} Cu. Ft.</p>
-//               <p className='py-5 text-blue-300'>Hover here for more details</p>
-//             </div>
-//             {hoveredFridge && hoveredFridge.name === fridge.name && (
-//           <div className="fridge-details-popup">
-//             <FridgeDetails fridge={hoveredFridge} />
-//           </div>
-//         )}
-//           </div>
-//         ))}
-        
-//       </div>
-//     );
-//   };
-  
-//   export default FridgeList;
+const shuffleArray = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]]; // swap elements
+  }
+  return array;
+};
+
 const Page2 = () => {
   const navigate = useNavigate();
   const [hoveredFridge, setHoveredFridge] = useState(null);
@@ -138,7 +83,7 @@ const Page2 = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   // const [selectedFridges, setSelectedFridges] = useState([]);
-  const { selectedFridges, setSelectedFridges } = useContext(AppContext);
+  const { selectedFridges, setSelectedFridges, clickedBack } = useContext(AppContext);
 
 
   useEffect(() => {
@@ -149,7 +94,8 @@ const Page2 = () => {
           throw new Error('Failed to fetch fridges');
         }
         const data = await response.json();
-        setFridges(data);
+        const shuffledFridges = shuffleArray(data); // Shuffle the fridges here
+        setFridges(shuffledFridges);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -184,7 +130,8 @@ const Page2 = () => {
       alert('Please select at least 2 fridges for comparison.');
       return;
     }
-    navigate(`/disclaimer`);
+    if(clickedBack===true) navigate('/fridgecomparison')
+    else navigate(`/disclaimer`);
   };
 
   if (loading) return <p>Loading...</p>;

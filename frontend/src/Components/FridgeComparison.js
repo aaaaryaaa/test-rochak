@@ -10,6 +10,7 @@ const FridgeComparison = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [user, setUser] = useState(null);
+  const { setClickedBack } = useContext(AppContext);
 
   useEffect(() => {
     const prolificId = localStorage.getItem('prolificId'); // Get prolificId from localStorage
@@ -72,7 +73,8 @@ const FridgeComparison = () => {
   }, [selectedFridges]);
 
   const handleGoBack = () => {
-    if(user.page === "page1") navigate("/page1");
+    setClickedBack(true);
+    if(user.page === "page1") navigate("/fridgelist");
     if(user.page === "page2") navigate("/page2");
     if(user.page === "page3") navigate("/page3");
   }

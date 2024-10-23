@@ -1,9 +1,24 @@
 // components/Disclaimer.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Disclaimer = () => {
     const navigate = useNavigate();
+    const [timeLeft, setTimeLeft] = useState(10); // Initialize timer with 10 seconds
+    const [isDisabled, setIsDisabled] = useState(true); // Button starts as disabled
+
+    // Timer effect
+    useEffect(() => {
+        if (timeLeft > 0) {
+            const timer = setTimeout(() => {
+                setTimeLeft(timeLeft - 1); // Decrease time left by 1 every second
+            }, 1000);
+
+            return () => clearTimeout(timer); // Clear timeout if component unmounts
+        } else {
+            setIsDisabled(false); // Enable button when timer reaches 0
+        }
+    }, [timeLeft]);
 
     const handleNext = () => {
         navigate('/fridgecomparison');
@@ -17,9 +32,18 @@ const Disclaimer = () => {
             </p>
             <img className='' src='https://res.cloudinary.com/daja3mrty/image/upload/v1729478338/frostbytelogo_mllxak.jpg'></img>
             <img className='' src='https://res.cloudinary.com/daja3mrty/image/upload/v1729478359/frostbytemoto_fi4kc0.jpg'></img>
-            <button onClick={handleNext} className="px-4 py-2 bg-blue-500 text-white rounded">
+            {/* <button onClick={handleNext} className="px-4 py-2 bg-blue-500 text-white rounded">
                 Next
-            </button>
+            </button> */}
+            <button
+            onClick={handleNext}
+            disabled={isDisabled} // Disable button if isDisabled is true
+            className={`px-4 py-2 rounded ${
+                isDisabled ? 'bg-gray-400' : 'bg-blue-500'
+            } text-white`}
+        >
+            {isDisabled ? `Wait ${timeLeft} seconds` : 'Next'}
+        </button>
         </div>
     );
 };

@@ -44,11 +44,11 @@
 }
 
 .fridge-rating img {
-    height: 2rem;
+    height: 1.5rem;
 }
 
 .fridge-price {
     font-size: 14px;
-    font-weight: bold;
-    color: #007BFF;
+    font-weight:900;
+    color: black;
 }

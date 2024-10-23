@@ -8,8 +8,8 @@ const FridgeDetails = ({ fridge }) => {
             <div>
                 <p className='text-lg font-bold'>{fridge.name.toUpperCase()}</p>
                 <img src={fridge.reviewImage} alt="Review" className="h-[2rem]" />
-                <p className="fridge-price">${fridge.price}</p>
-                <h3 className="text-md font-bold mb-2">Dimensions: {fridge.dimensions.height} x {fridge.dimensions.width} x {fridge.dimensions.depth} inches</h3>
+                <p className="font-bold text-lg">${fridge.price}</p>
+                <p>Dimensions: {fridge.dimensions.height} x {fridge.dimensions.width} x {fridge.dimensions.depth} inches</p>
                 <p>Cooling Space: {fridge.coolingSpace} Cu. Ft.</p>
                 <p>Freezer Space: {fridge.freezerSpace} Cu. Ft.</p>
                 <p>Total Space: {fridge.totalSpace} Cu. Ft.</p>

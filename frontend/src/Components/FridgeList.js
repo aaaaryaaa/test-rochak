@@ -1,4 +1,3 @@
-// components/FridgeList.js
 import React, { useContext, useEffect, useState } from 'react';
 import './FridgeList.css';
 import FridgeDetails from './FridgeDetails';
@@ -7,139 +6,82 @@ import { AppContext } from '../Context/AppContext';
 import BaseUrl from '../BaseUrl';
 
 const fridgeData = [{
-    name: 'coolnest1',
-    fridgeImage: 'https://res.cloudinary.com/daja3mrty/image/upload/v1729480360/coolnest1_pfoip3.jpg',
-    reviewImage: 'https://res.cloudinary.com/daja3mrty/image/upload/v1729480366/coolnest1review_r47fww.jpg',
-    price: 649.99,
-    dimensions: { height: 64.8, width: 28, depth: 30.5 },
-    coolingSpace: 12.6,
-    freezerSpace: 4.0,
-    totalSpace: 16.6,
-    productWeight: 152,
-    energyConsumption: 355,
-    iceMaker: true,
-    garageReady: false,
-    internalWaterDispenser: false,
-    warranty: '1 year'
+  name: 'coolnest1',
+  fridgeImage: 'https://res.cloudinary.com/daja3mrty/image/upload/v1729480360/coolnest1_pfoip3.jpg',
+  reviewImage: 'https://res.cloudinary.com/daja3mrty/image/upload/v1729480366/coolnest1review_r47fww.jpg',
+  price: 649.99,
+  dimensions: { height: 64.8, width: 28, depth: 30.5 },
+  coolingSpace: 12.6,
+  freezerSpace: 4.0,
+  totalSpace: 16.6,
+  productWeight: 152,
+  energyConsumption: 355,
+  iceMaker: true,
+  garageReady: false,
+  internalWaterDispenser: false,
+  warranty: '1 year'
 }, {
-    name: 'chillcore1',
-    fridgeImage: 'https://res.cloudinary.com/daja3mrty/image/upload/v1729480360/coolnest1_pfoip3.jpg',
-    reviewImage: 'https://res.cloudinary.com/daja3mrty/image/upload/v1729480366/coolnest1review_r47fww.jpg',
-    price: 649.99,
-    dimensions: { height: 64.8, width: 28, depth: 30.5 },
-    coolingSpace: 12.6,
-    freezerSpace: 4.0,
-    totalSpace: 16.6,
-    productWeight: 152,
-    energyConsumption: 355,
-    iceMaker: true,
-    garageReady: false,
-    internalWaterDispenser: false,
-    warranty: '1 year'
+  name: 'chillcore1',
+  fridgeImage: 'https://res.cloudinary.com/daja3mrty/image/upload/v1729480360/coolnest1_pfoip3.jpg',
+  reviewImage: 'https://res.cloudinary.com/daja3mrty/image/upload/v1729480366/coolnest1review_r47fww.jpg',
+  price: 649.99,
+  dimensions: { height: 64.8, width: 28, depth: 30.5 },
+  coolingSpace: 12.6,
+  freezerSpace: 4.0,
+  totalSpace: 16.6,
+  productWeight: 152,
+  energyConsumption: 355,
+  iceMaker: true,
+  garageReady: false,
+  internalWaterDispenser: false,
+  warranty: '1 year'
 }, {
-    name: 'frostbyte1',
-    fridgeImage: 'https://res.cloudinary.com/daja3mrty/image/upload/v1729480360/coolnest1_pfoip3.jpg',
-    reviewImage: 'https://res.cloudinary.com/daja3mrty/image/upload/v1729480366/coolnest1review_r47fww.jpg',
-    price: 649.99,
-    dimensions: { height: 64.8, width: 28, depth: 30.5 },
-    coolingSpace: 12.6,
-    freezerSpace: 4.0,
-    totalSpace: 16.6,
-    productWeight: 152,
-    energyConsumption: 355,
-    iceMaker: true,
-    garageReady: false,
-    internalWaterDispenser: false,
-    warranty: '1 year'
+  name: 'frostbyte1',
+  fridgeImage: 'https://res.cloudinary.com/daja3mrty/image/upload/v1729480360/coolnest1_pfoip3.jpg',
+  reviewImage: 'https://res.cloudinary.com/daja3mrty/image/upload/v1729480366/coolnest1review_r47fww.jpg',
+  price: 649.99,
+  dimensions: { height: 64.8, width: 28, depth: 30.5 },
+  coolingSpace: 12.6,
+  freezerSpace: 4.0,
+  totalSpace: 16.6,
+  productWeight: 152,
+  energyConsumption: 355,
+  iceMaker: true,
+  garageReady: false,
+  internalWaterDispenser: false,
+  warranty: '1 year'
 }, {
-    name: 'polarpeak1',
-    fridgeImage: 'https://res.cloudinary.com/daja3mrty/image/upload/v1729480360/coolnest1_pfoip3.jpg',
-    reviewImage: 'https://res.cloudinary.com/daja3mrty/image/upload/v1729480366/coolnest1review_r47fww.jpg',
-    price: 649.99,
-    dimensions: { height: 64.8, width: 28, depth: 30.5 },
-    coolingSpace: 12.6,
-    freezerSpace: 4.0,
-    totalSpace: 16.6,
-    productWeight: 152,
-    energyConsumption: 355,
-    iceMaker: true,
-    garageReady: false,
-    internalWaterDispenser: false,
-    warranty: '1 year'
+  name: 'polarpeak1',
+  fridgeImage: 'https://res.cloudinary.com/daja3mrty/image/upload/v1729480360/coolnest1_pfoip3.jpg',
+  reviewImage: 'https://res.cloudinary.com/daja3mrty/image/upload/v1729480366/coolnest1review_r47fww.jpg',
+  price: 649.99,
+  dimensions: { height: 64.8, width: 28, depth: 30.5 },
+  coolingSpace: 12.6,
+  freezerSpace: 4.0,
+  totalSpace: 16.6,
+  productWeight: 152,
+  energyConsumption: 355,
+  iceMaker: true,
+  garageReady: false,
+  internalWaterDispenser: false,
+  warranty: '1 year'
 }];
 
-// const FridgeList = () => {
-//     const [hoveredFridge, setHoveredFridge] = useState(null);
-//     const [fridges, setFridges] = useState(fridgeData);
-//     const [loading, setLoading] = useState(true);
-//     const [error, setError] = useState(null);
-  
-//     useEffect(() => {
-//       const fetchFridges = async () => {
-//         try {
-//           const response = await fetch('http://localhost:5000/api/fridges');
-//           if (!response.ok) {
-//             throw new Error('Failed to fetch fridges');
-//           }
-//           const data = await response.json();
-//           setFridges(data);
-//           console.log(data);
-//         } catch (error) {
-//           setError(error.message);
-//         } finally {
-//           setLoading(false);
-//         }
-//       };
-  
-//       fetchFridges();
-//     }, []);
-  
-//     if (loading) return <p>Loading...</p>;
-//     if (error) return <p>Error: {error}</p>;
-  
-//     return (
-//       <div className="fridge-list">
-//         {fridges.map((fridge, index) => (
-//           <div
-//             key={index}
-//             className="fridge-item flex justify-around p-3"
-//           >
-//             <img src={fridge.fridgeImage} alt="Refrigerator" className="fridge-image" />
-//             <div className="fridge-details flex-col gap-4"
-//             onMouseEnter={() => setHoveredFridge(fridge)}
-//             onMouseLeave={() => setHoveredFridge(null)}>
-//               <p>{fridge.name}</p>
-//               <p className="fridge-price">${fridge.price}</p>
-//               <div className="fridge-rating">
-//                 <img src={fridge.reviewImage} alt="Rating" />
-//               </div>
-//               <h3>{fridge.totalSpace} Cu. Ft. Refrigerator</h3>
-//               <p>Cooling space: {fridge.coolingSpace} Cu. Ft.</p>
-//               <p>Freezer space: {fridge.freezerSpace} Cu. Ft.</p>
-//               <p className='py-5 text-blue-300'>Hover here for more details</p>
-//             </div>
-//             {hoveredFridge && hoveredFridge.name === fridge.name && (
-//           <div className="fridge-details-popup">
-//             <FridgeDetails fridge={hoveredFridge} />
-//           </div>
-//         )}
-//           </div>
-//         ))}
-        
-//       </div>
-//     );
-//   };
-  
-//   export default FridgeList;
+const shuffleArray = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]]; // swap elements
+  }
+  return array;
+};
+
 const FridgeList = () => {
   const navigate = useNavigate();
   const [hoveredFridge, setHoveredFridge] = useState(null);
   const [fridges, setFridges] = useState(fridgeData);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  // const [selectedFridges, setSelectedFridges] = useState([]);
   const { selectedFridges, setSelectedFridges } = useContext(AppContext);
-
 
   useEffect(() => {
     const fetchFridges = async () => {
@@ -149,7 +91,8 @@ const FridgeList = () => {
           throw new Error('Failed to fetch fridges');
         }
         const data = await response.json();
-        setFridges(data);
+        const shuffledFridges = shuffleArray(data); // Shuffle the fridges here
+        setFridges(shuffledFridges);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -166,7 +109,6 @@ const FridgeList = () => {
     } else {
       if (selectedFridges.length < 4) {
         setSelectedFridges([...selectedFridges, fridgeName]);
-        console.log([...selectedFridges, fridgeName]);
       } else {
         alert('You can only select a maximum of 4 fridges.');
       }
@@ -206,9 +148,7 @@ const FridgeList = () => {
               Select this fridge
             </label>
           </div>
-          <div
-            className="fridge-details flex-col gap-4"
-          >
+          <div className="fridge-details flex-col gap-4">
             <p className='text-lg font-bold'>{fridge.name.toUpperCase()}</p>
             <p className="fridge-price">${fridge.price}</p>
             <div className="fridge-rating">
@@ -218,8 +158,8 @@ const FridgeList = () => {
             <p>Cooling space: {fridge.coolingSpace} Cu. Ft.</p>
             <p>Freezer space: {fridge.freezerSpace} Cu. Ft.</p>
             <p className='py-5 text-blue-300' 
-            onMouseEnter={() => setHoveredFridge(fridge)}
-            onMouseLeave={() => setHoveredFridge(null)}
+              onMouseEnter={() => setHoveredFridge(fridge)}
+              onMouseLeave={() => setHoveredFridge(null)}
             >
               Hover here for more details
             </p>
@@ -239,12 +179,12 @@ const FridgeList = () => {
         </p>
       </div>
       <button
-          onClick={handleCompareClick}
-          className="compare-button mt-3 p-2 bg-blue-500 text-white rounded"
-          disabled={selectedFridges.length < 2}
-        >
-          Compare Selected Fridges
-        </button>
+        onClick={handleCompareClick}
+        className="compare-button mt-3 p-2 bg-blue-500 text-white rounded"
+        disabled={selectedFridges.length < 2}
+      >
+        Compare Selected Fridges
+      </button>
     </div>
   );
 };
