@@ -121,13 +121,53 @@ const FridgeList = () => {
     );
   };
 
-  const handleCompareClick = () => {
+  // const handleCompareClick = () => {
+  //   if (selectedFridges.length < 2) {
+  //     alert('Please select at least 2 fridges for comparison.');
+  //     return;
+  //   }
+  //   navigate(`/fridgecomparison`);
+  // };
+  const handleCompareClick = async () => {
     if (selectedFridges.length < 2) {
       alert('Please select at least 2 fridges for comparison.');
       return;
     }
-    navigate(`/fridgecomparison`);
+  
+    // Attach the current timestamp to each selected fridge
+    const selectedFridgesWithTime = selectedFridges.map(fridgeName => ({
+      fridgeName,
+      selectTime: new Date().toISOString() // Use ISO string format for consistency
+    }));
+  
+    try {
+      // Replace 'userId' with the actual user ID you want to update
+      const prolificId = localStorage.getItem('prolificId'); // Make sure you replace this with the correct user ID
+      const response = await fetch(`${BaseUrl}/api/users/${prolificId}/updateFridgeSelection`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          fridgeSelection: selectedFridgesWithTime
+        })
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to update fridge selection.');
+      }
+  
+      const data = await response.json();
+      console.log('Fridge selection updated successfully:', data);
+  
+      // Navigate to the comparison page
+      navigate(`/fridgecomparison`);
+    } catch (error) {
+      console.error('Error updating fridge selection:', error);
+      alert('An error occurred while updating the fridge selection. Please try again.');
+    }
   };
+  
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -224,4 +264,4 @@ const FridgeList = () => {
   );
 };
 
-export default FridgeList;
+export default FridgeList; //bro basically on submit send the list of fridges selected with the timestamp of each fridge as well as timestamp of when they press compare

@@ -158,6 +158,20 @@ const FridgeComparison = () => {
                 ))}
               </tr>
             ))}
+            {/* Add an extra row for the Select button */}
+            <tr>
+              <td className="py-2 px-4 border-b font-semibold">Select</td>
+              {fridgesToCompare.map((fridge, idx) => (
+                <td key={idx} className="py-2 px-4 border-b text-center">
+                  <button
+                    className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-gray-400 mt-4"
+                    onClick={() => handleSelection(fridge.name)}
+                  >
+                    Select
+                  </button>
+                </td>
+              ))}
+            </tr>
           </tbody>
         </table>
       </div>

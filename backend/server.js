@@ -28,28 +28,64 @@ mongoose.connect(process.env.MONGO_URI, {
 });
 
 // User schema
+// const userSchema = new mongoose.Schema({
+//     prolificId: {
+//         type: String,
+//         required: true,
+//         unique: true // Ensure each ID is unique
+//     },
+//     startTime: {
+//         type: Date,
+//         default: Date.now // Automatically set to the current date/time
+//     },
+//     endTime: {
+//         type: Date,
+//         default: Date.now // This can be updated later
+//     },
+//     page: {
+//         type: String,
+//         default: ""
+//     },
+//     selectedOption: {
+//         type: String,
+//         default: ""
+//     }
+// });
+
+// const User = mongoose.model('User', userSchema);
+
+// Updated User schema
 const userSchema = new mongoose.Schema({
-    prolificId: {
-        type: String,
-        required: true,
-        unique: true // Ensure each ID is unique
-    },
-    startTime: {
-        type: Date,
-        default: Date.now // Automatically set to the current date/time
-    },
-    endTime: {
-        type: Date,
-        default: Date.now // This can be updated later
-    },
-    page: {
-        type: String,
-        default: ""
-    },
-    selectedOption: {
-        type: String,
-        default: ""
-    }
+  prolificId: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  startTime: {
+    type: Date,
+    default: Date.now
+  },
+  endTime: {
+    type: Date,
+    default: Date.now
+  },
+  page: {
+    type: String,
+    default: ""
+  },
+  selectedOption: {
+    type: String,
+    default: ""
+  },
+  // New field to store an array of arrays (matrix) of selected fridges
+  fridgeSelectionMatrix: [
+    [
+      {
+        fridgeName: String,
+        selectTime: Date
+      }
+    ]
+  ]
 });
 
 const User = mongoose.model('User', userSchema);
@@ -138,6 +174,54 @@ app.patch('/api/users/update-page', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
+// app.patch('/api/users/:userId/updateFridgeSelection', async (req, res) => {
+//   const { userId } = req.params;
+//   const { fridgeSelection } = req.body;
+
+//   try {
+//     // Update the user document by adding a new array to the fridge matrix
+//     const user = await User.findById(userId);
+//     if (!user) {
+//       return res.status(404).json({ message: 'User not found' });
+//     }
+
+//     // Add the new selection array to the user's fridgeSelectionMatrix
+//     user.fridgeSelectionMatrix = user.fridgeSelectionMatrix || [];
+//     user.fridgeSelectionMatrix.push(fridgeSelection);
+
+//     await user.save();
+
+//     res.status(200).json({ message: 'Fridge selection updated successfully', user });
+//   } catch (error) {
+//     console.error('Error updating fridge selection:', error);
+//     res.status(500).json({ message: 'Failed to update fridge selection' });
+//   }
+// });
+app.patch('/api/users/:prolificId/updateFridgeSelection', async (req, res) => {
+  const { prolificId } = req.params;
+  const { fridgeSelection } = req.body;
+
+  try {
+    // Find the user by their prolificId
+    const user = await User.findOne({ prolificId });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Add the new selection array to the user's fridgeSelectionMatrix
+    user.fridgeSelectionMatrix = user.fridgeSelectionMatrix || [];
+    user.fridgeSelectionMatrix.push(fridgeSelection);
+
+    await user.save();
+
+    res.status(200).json({ message: 'Fridge selection updated successfully', user });
+  } catch (error) {
+    console.error('Error updating fridge selection:', error);
+    res.status(500).json({ message: 'Failed to update fridge selection' });
+  }
+});
+
 
 //Fridge Schema
 const fridgeSchema = new mongoose.Schema({

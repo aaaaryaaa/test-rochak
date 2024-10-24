@@ -125,13 +125,53 @@ const Page2 = () => {
     );
   };
 
-  const handleCompareClick = () => {
+  // const handleCompareClick = () => {
+  //   if (selectedFridges.length < 2) {
+  //     alert('Please select at least 2 fridges for comparison.');
+  //     return;
+  //   }
+  //   if(clickedBack===true) navigate('/fridgecomparison')
+  //   else navigate(`/disclaimer`);
+  // };
+  const handleCompareClick = async () => {
     if (selectedFridges.length < 2) {
       alert('Please select at least 2 fridges for comparison.');
       return;
     }
-    if(clickedBack===true) navigate('/fridgecomparison')
-    else navigate(`/disclaimer`);
+  
+    // Attach the current timestamp to each selected fridge
+    const selectedFridgesWithTime = selectedFridges.map(fridgeName => ({
+      fridgeName,
+      selectTime: new Date().toISOString() // Use ISO string format for consistency
+    }));
+  
+    try {
+      // Replace 'userId' with the actual user ID you want to update
+      const prolificId = localStorage.getItem('prolificId'); // Make sure you replace this with the correct user ID
+      const response = await fetch(`${BaseUrl}/api/users/${prolificId}/updateFridgeSelection`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          fridgeSelection: selectedFridgesWithTime
+        })
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to update fridge selection.');
+      }
+  
+      const data = await response.json();
+      console.log('Fridge selection updated successfully:', data);
+  
+      // Navigate to the comparison page
+      if(clickedBack===true) navigate('/fridgecomparison');
+      else navigate(`/disclaimer`);
+    } catch (error) {
+      console.error('Error updating fridge selection:', error);
+      alert('An error occurred while updating the fridge selection. Please try again.');
+    }
   };
 
   if (loading) return <p>Loading...</p>;
