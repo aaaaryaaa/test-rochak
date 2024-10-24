@@ -115,37 +115,54 @@ const FridgeComparison = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
 
+  // Prepare the attributes for comparison
+  const attributes = [
+    { label: 'Fridge Image', key: 'fridgeImage', format: (value) => <img src={value} alt="Fridge" className="max-h-40 mx-auto" /> },
+    { label: 'Price', key: 'price' },
+    { label: 'Dimensions (H x W x D)', key: 'dimensions', format: (value) => `${value.height} x ${value.width} x ${value.depth} in` },
+    { label: 'Cooling Space', key: 'coolingSpace', suffix: ' Cu. Ft.' },
+    { label: 'Freezer Space', key: 'freezerSpace', suffix: ' Cu. Ft.' },
+    { label: 'Total Space', key: 'totalSpace', suffix: ' Cu. Ft.' },
+    { label: 'Energy Consumption', key: 'energyConsumption', suffix: ' kWh/year' },
+    { label: 'Ice Maker', key: 'iceMaker', format: (value) => (value ? 'Yes' : 'No') },
+    { label: 'Garage Ready', key: 'garageReady', format: (value) => (value ? 'Yes' : 'No') },
+    { label: 'Internal Water Dispenser', key: 'internalWaterDispenser', format: (value) => (value ? 'Yes' : 'No') },
+    { label: 'Warranty', key: 'warranty' },
+  ];
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:max-grid-cols-4 gap-6 p-4">
-      <div className="col-span-full">
-        <button onClick={handleGoBack} className="bg-blue-500 text-[2rem] text-white py-2 px-4 rounded hover:bg-gray-400 mt-4">🔙 to selection</button>
+    <div className="p-4">
+      <button onClick={handleGoBack} className="bg-blue-500 text-[2rem] text-white py-2 px-4 rounded hover:bg-gray-400 mt-4">
+        🔙 to selection
+      </button>
+      <div className="overflow-x-auto mt-6">
+        <table className="min-w-full bg-white border border-gray-200">
+          <thead>
+            <tr>
+              <th className="py-2 px-4 border-b"></th>
+              {fridgesToCompare.map((fridge, index) => (
+                <th key={index} className="py-2 px-4 border-b text-center">{fridge.name}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {attributes.map((attribute, index) => (
+              <tr key={index} className="hover:bg-gray-100">
+                <td className="py-2 px-4 border-b font-semibold">{attribute.label}</td>
+                {fridgesToCompare.map((fridge, idx) => (
+                  <td key={idx} className="py-2 px-4 border-b text-center">
+                    {attribute.format
+                      ? attribute.format(fridge[attribute.key])
+                      : `${fridge[attribute.key] || ''}${attribute.suffix || ''}`}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-      {fridgesToCompare.map((fridge, index) => (
-        <div key={index} className="border p-4 rounded shadow-lg bg-white flex h-[20rem]">
-          <img src={fridge.fridgeImage} alt={fridge.name} className="h-[100%] object-cover p-5" />
-          <div className="p-0 text-center w-full">
-            <h2 className="text-lg font-semibold">{fridge.name}</h2>
-            <p className="text-xl font-bold text-blue-500">${fridge.price}</p>
-            <p className="text-[0.8rem] text-gray-600">Dimensions: {fridge.dimensions.height} x {fridge.dimensions.width} x {fridge.dimensions.depth} in</p>
-            <p className="text-[0.8rem] text-gray-600">Cooling Space: {fridge.coolingSpace} Cu. Ft.</p>
-            <p className="text-[0.8rem] text-gray-600">Freezer Space: {fridge.freezerSpace} Cu. Ft.</p>
-            <p className="text-[0.8rem] text-gray-600">Total Space: {fridge.totalSpace} Cu. Ft.</p>
-            <p className="text-[0.8rem] text-gray-600">Energy Consumption: {fridge.energyConsumption} kWh/year</p>
-            <p className="text-[0.8rem] text-gray-600">Ice Maker: {fridge.iceMaker ? 'Yes' : 'No'}</p>
-            <p className="text-[0.8rem] text-gray-600">Garage Ready: {fridge.garageReady ? 'Yes' : 'No'}</p>
-            <p className="text-[0.8rem] text-gray-600">Internal Water Dispenser: {fridge.internalWaterDispenser ? 'Yes' : 'No'}</p>
-            <p className="text-[0.8rem] text-gray-600">Warranty: {fridge.warranty}</p>
-            <button
-              className="col-span-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-gray-400 mt-4"
-              onClick={() => handleSelection(fridge.name)}
-            >
-              Select
-            </button>
-          </div>
-        </div>
-      ))}
       <button
-        className="col-span-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-gray-400 mt-4"
+        className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-gray-400 mt-4"
         onClick={() => handleSelection('nota')}
       >
         Select none of these

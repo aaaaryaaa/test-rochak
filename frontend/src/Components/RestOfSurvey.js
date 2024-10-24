@@ -49,10 +49,12 @@ export default function RestOfSurvey() {
       setLoading(false);
     }
   }, []);
+
   return (
-    <div>
-        <div className='text-[5rem] text-center w-full font-bold'>Rest Of Survey</div>
-        {time && (<div>Time taken: {time}</div>)}
+    <div className='flex flex-col justify-center min-h-screen p-4 mx-60'>
+        <div className='p-5 text-center w-full '>Please continue to the last part of the survey.</div>
+        <a className='px-4 py-2 bg-blue-500 text-white rounded text-center' href='https://iimb.qualtrics.com/jfe/form/SV_5vSqAIRRsPIOMGW'>Go to Prolific</a>
+        {/* {time && (<div>Time taken: {time}</div>)} */}
     </div>
   )
 }

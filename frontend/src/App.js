@@ -15,6 +15,7 @@ import { AppProvider } from './Context/AppContext';
 import Disclaimer from './Components/Disclaimer';
 import RestOfSurvey from './Components/RestOfSurvey';
 import CaptchaComponent from './Components/CaptchaComponent';
+import NoConsent from './Components/NoConsent';
 
 const App = () => {
     // const [route, setRoute] = useState('');
@@ -53,6 +54,7 @@ const App = () => {
                     <Route path="/disclaimer" element={<Disclaimer />} />
                     <Route path="/restofsurvey" element={<RestOfSurvey />} />
                     <Route path="/captcha" element={<CaptchaComponent />} />
+                    <Route path="/noconsent" element={<NoConsent />} />
                 </Routes>
             </Router>
         </AppProvider>
