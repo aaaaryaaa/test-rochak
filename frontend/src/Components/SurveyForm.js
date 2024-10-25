@@ -146,7 +146,7 @@ const SurveyForm = () => {
         <h2 className="text-xl font-bold mt-9">Please respond to the following questions by selecting the appropriate option on a scale from 1 (none at all) to 5 (a great deal).</h2>
         <div className='text-center'>
             {/* Ex1Expertise in product category */}
-            <label className="block font-medium mt-7">How much Ex1expertise do you think Frostbyte has in product category?</label>
+            <label className="block font-medium mt-7">How much expertise do you think Frostbyte has in product category?</label>
             <div className="flex space-x-4 justify-center">none at all |
                 {[1, 2, 3, 4, 5].map((value) => (
                 <label key={`Ex1expertise-${value}`} className='p-1'>
@@ -163,7 +163,7 @@ const SurveyForm = () => {
             </div>
 
             {/* Ex2Knowledge regarding the product category */}
-            <label className="block font-medium mt-7">How much Ex2knowledge Frostbyte has regarding the product category?</label>
+            <label className="block font-medium mt-7">How much knowledge Frostbyte has regarding the product category?</label>
             <div className="flex space-x-4 justify-center">none at all |
                 {[1, 2, 3, 4, 5].map((value) => (
                 <label key={`Ex2knowledge-${value}`} className='p-1'>

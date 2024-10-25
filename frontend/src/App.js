@@ -9,7 +9,6 @@ import InfoPage2 from './Components/InfoPage2';
 import Consent from './Components/Consent';
 import Final from './Components/Final';
 import FridgeList from './Components/FridgeList';
-import FridgeDetails from './Components/FridgeDetails';
 import FridgeComparison from './Components/FridgeComparison';
 import { AppProvider } from './Context/AppContext';
 import Disclaimer from './Components/Disclaimer';

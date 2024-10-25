@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const { Parser } = require('json2csv');
 const cors = require('cors');
 require('dotenv').config();
 
@@ -137,6 +138,18 @@ const userSchema = new mongoose.Schema({
 });
 
 const User = mongoose.model('User', userSchema);
+
+// Route to get all users
+app.get('/api/7427865484/users', async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    res.status(500).json({ error: 'Failed to fetch users' });
+  }
+});
+
 
 // Route to get user by prolificId
 app.get('/api/users/:prolificId', async (req, res) => {
@@ -338,6 +351,26 @@ app.patch('/api/users/:prolificId/select-fridge-click', async (req, res) => {
   } catch (error) {
     console.error('Error updating selectFridgeClick:', error);
     res.status(500).json({ message: 'Failed to update selectFridgeClick' });
+  }
+});
+
+// Route to download user data as CSV
+app.get('/api/users/download', async (req, res) => {
+  try {
+    // Fetch all users from the database
+    const users = await User.find();
+
+    // Convert JSON to CSV
+    const json2csvParser = new Parser();
+    const csv = json2csvParser.parse(users);
+
+    // Set the headers to indicate a file download
+    res.header('Content-Type', 'text/csv');
+    res.attachment('users.csv'); // Set the name of the downloaded file
+    res.send(csv); // Send the CSV file
+  } catch (error) {
+    console.error('Error downloading user data:', error);
+    res.status(500).json({ error: 'Failed to download user data' });
   }
 });
 
