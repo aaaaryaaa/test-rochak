@@ -135,6 +135,10 @@ const userSchema = new mongoose.Schema({
     type: [Date], // Array of dates
     default: [],
   },
+  shuffledFridges: {
+    type: [[String]], // Matrix to store arrays of fridge nameId strings
+    default: [],
+  },
 });
 
 const User = mongoose.model('User', userSchema);
@@ -305,6 +309,32 @@ app.patch('/api/users/updateform', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+// Route to update the shuffledFridges field of a user using prolificId
+app.patch('/api/users/:prolificId/fridgeshuffle', async (req, res) => {
+  const { prolificId } = req.params;
+  const { shuffledFridges } = req.body;
+
+  try {
+    // Find the user and push the new shuffled fridges array into the shuffledFridges matrix
+    const user = await User.findOneAndUpdate(
+      { prolificId },
+      { $push: { shuffledFridges } },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json(user);
+  } catch (error) {
+    console.error('Error updating shuffledFridges:', error);
+    res.status(500).json({ error: 'Failed to update shuffledFridges' });
+  }
+});
+
+
 
 // API route to add a timestamp to comparisonClick
 app.patch('/api/users/:prolificId/comparison-click', async (req, res) => {

@@ -21,6 +21,25 @@ const FridgeList = () => {
   const [error, setError] = useState(null);
   const { selectedFridges, setSelectedFridges } = useContext(AppContext);
 
+  // useEffect(() => {
+  //   const fetchFridges = async () => {
+  //     try {
+  //       const response = await fetch(`${BaseUrl}/api/fridges`);
+  //       if (!response.ok) {
+  //         throw new Error('Failed to fetch fridges');
+  //       }
+  //       const data = await response.json();
+  //       const shuffledFridges = shuffleArray(data); // Shuffle the fridges here
+  //       setFridges(shuffledFridges);
+  //     } catch (error) {
+  //       setError(error.message);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchFridges();
+  // }, []);
   useEffect(() => {
     const fetchFridges = async () => {
       try {
@@ -31,15 +50,44 @@ const FridgeList = () => {
         const data = await response.json();
         const shuffledFridges = shuffleArray(data); // Shuffle the fridges here
         setFridges(shuffledFridges);
+  
+        const shuffledNameIds = shuffledFridges.map(fridge => fridge.nameId);
+        // Send the PATCH request to update the user's shuffledFridges field
+        await updateUserShuffledFridges(shuffledNameIds);
+  
       } catch (error) {
         setError(error.message);
       } finally {
         setLoading(false);
       }
     };
-
+  
     fetchFridges();
   }, []);
+  
+  // Function to send a PATCH request to update shuffledFridges in the user document
+  const updateUserShuffledFridges = async (shuffledFridges) => {
+    try {
+      const prolificId = localStorage.getItem('prolificId')/* Retrieve the user's prolificId here */;
+      const response = await fetch(`${BaseUrl}/api/users/${prolificId}/fridgeshuffle`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ shuffledFridges }),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to update shuffledFridges');
+      }
+  
+      const result = await response.json();
+      // console.log('User updated successfully:', result);
+    } catch (error) {
+      console.error('Error updating shuffledFridges:', error);
+    }
+  };
+  
 
   const handleSelectFridge = (fridgeName, fridgeNameId) => {
     const currentTime = new Date().toISOString();
@@ -91,7 +139,7 @@ const FridgeList = () => {
       }
   
       const data = await response.json();
-      console.log(data.message); // Handle the response as needed
+      // console.log(data.message); // Handle the response as needed
     } catch (error) {
       console.error('Error:', error);
     }
@@ -124,7 +172,7 @@ const FridgeList = () => {
       }
 
       const data = await response.json();
-      console.log('Fridge selection updated successfully:', data);
+      // console.log('Fridge selection updated successfully:', data);
 
       addComparisonClick(prolificId);
 

@@ -130,7 +130,7 @@ const FridgeComparison = () => {
     }
 
     const data = await response.json();
-    console.log(data.message); // Handle the response as needed
+    // console.log(data.message); // Handle the response as needed
   } catch (error) {
     console.error('Error:', error);
   }
@@ -161,7 +161,7 @@ const FridgeComparison = () => {
       }
 
       const data = await response.json();
-      console.log('User updated successfully:', data);
+      // console.log('User updated successfully:', data);
 
       addSelectFridgeClick(prolificId);
 

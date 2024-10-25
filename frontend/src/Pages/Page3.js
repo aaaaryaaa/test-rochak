@@ -96,15 +96,43 @@ const Page3 = () => {
         const data = await response.json();
         const shuffledFridges = shuffleArray(data); // Shuffle the fridges here
         setFridges(shuffledFridges);
+  
+        const shuffledNameIds = shuffledFridges.map(fridge => fridge.nameId);
+        // Send the PATCH request to update the user's shuffledFridges field
+        await updateUserShuffledFridges(shuffledNameIds);
+  
       } catch (error) {
         setError(error.message);
       } finally {
         setLoading(false);
       }
     };
-
+  
     fetchFridges();
   }, []);
+  
+  // Function to send a PATCH request to update shuffledFridges in the user document
+  const updateUserShuffledFridges = async (shuffledFridges) => {
+    try {
+      const prolificId = localStorage.getItem('prolificId')/* Retrieve the user's prolificId here */;
+      const response = await fetch(`${BaseUrl}/api/users/${prolificId}/fridgeshuffle`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ shuffledFridges }),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to update shuffledFridges');
+      }
+  
+      const result = await response.json();
+      console.log('User updated successfully:', result);
+    } catch (error) {
+      console.error('Error updating shuffledFridges:', error);
+    }
+  };
 
   const handleSelectFridge = (fridgeName, fridgeNameId) => {
     const currentTime = new Date().toISOString();

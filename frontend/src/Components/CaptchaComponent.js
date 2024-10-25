@@ -11,7 +11,7 @@ function CaptchaComponent({ setVerified }) {
         if (value) {
             setCaptchaVerified(true); // Set to true when CAPTCHA is completed
             setVerified(true);
-            console.log("CAPTCHA completed:", value); // You can use this value for verification on your server
+            // console.log("CAPTCHA completed:", value); // You can use this value for verification on your server
         }
     };
 

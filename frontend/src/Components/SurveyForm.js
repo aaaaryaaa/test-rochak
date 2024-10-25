@@ -133,7 +133,7 @@ const SurveyForm = () => {
     try {
       // Make PATCH request to the server
       const response = await axios.patch(`${BaseUrl}/api/users/updateform`, dataToSubmit);
-      console.log(response);
+    //   console.log(response);
       navigate("/restofsurvey")
     } catch (error) {
       console.error('Error submitting survey:', error);

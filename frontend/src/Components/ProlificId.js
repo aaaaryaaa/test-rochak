@@ -14,7 +14,7 @@ const ProlificId = () => {
         try {
             // Call the API to create a user
             const response = await axios.post(`${BaseUrl}/api/users/create`, { prolificId });
-            console.log(response.data); // You can store user data or show a message if needed
+            // console.log(response.data); // You can store user data or show a message if needed
             
             localStorage.setItem('prolificId', prolificId);
 
