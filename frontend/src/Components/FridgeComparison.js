@@ -40,13 +40,47 @@ const FridgeComparison = () => {
     }
   }, []);
 
+  // useEffect(() => {
+  //   if (selectedFridges.length < 2 || selectedFridges.length > 4) {
+  //     setError('Please select a minimum of 2 and a maximum of 4 fridges to compare.');
+  //     setLoading(false);
+  //     return;
+  //   }
+
+  //   const fetchFridgesToCompare = async () => {
+  //     try {
+  //       const response = await fetch(`${BaseUrl}/api/fridges/compare`, {
+  //         method: 'POST',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify({ names: selectedFridges }),
+  //       });
+
+  //       if (!response.ok) {
+  //         throw new Error('Failed to fetch fridges for comparison');
+  //       }
+  //       const data = await response.json();
+  //       setFridgesToCompare(data);
+  //     } catch (error) {
+  //       setError(error.message);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchFridgesToCompare();
+  // }, [selectedFridges]);
   useEffect(() => {
-    if (selectedFridges.length < 2 || selectedFridges.length > 4) {
+    // Ensure selectedFridges is an array of objects and extract names
+    const fridgeNames = selectedFridges.map((fridge) => fridge.fridgeName);
+  
+    if (fridgeNames.length < 2 || fridgeNames.length > 4) {
       setError('Please select a minimum of 2 and a maximum of 4 fridges to compare.');
       setLoading(false);
       return;
     }
-
+  
     const fetchFridgesToCompare = async () => {
       try {
         const response = await fetch(`${BaseUrl}/api/fridges/compare`, {
@@ -54,9 +88,9 @@ const FridgeComparison = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ names: selectedFridges }),
+          body: JSON.stringify({ names: fridgeNames }), // Use fridgeNames instead of selectedFridges
         });
-
+  
         if (!response.ok) {
           throw new Error('Failed to fetch fridges for comparison');
         }
@@ -68,9 +102,10 @@ const FridgeComparison = () => {
         setLoading(false);
       }
     };
-
+  
     fetchFridgesToCompare();
   }, [selectedFridges]);
+  
 
   const handleGoBack = () => {
     setClickedBack(true);
@@ -78,6 +113,28 @@ const FridgeComparison = () => {
     if(user.page === "page2") navigate("/page2");
     if(user.page === "page3") navigate("/page3");
   }
+
+  async function addSelectFridgeClick(prolificId) {
+  const timestamp = new Date().toISOString(); // Get the current timestamp in ISO format
+  try {
+    const response = await fetch(`${BaseUrl}/api/users/${prolificId}/select-fridge-click`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ timestamp }), // Send the timestamp in the request body
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to add select fridge click');
+    }
+
+    const data = await response.json();
+    console.log(data.message); // Handle the response as needed
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
 
   const handleSelection = async (selectedOption) => {
     const prolificId = localStorage.getItem('prolificId'); // Retrieve prolificId from localStorage
@@ -94,7 +151,7 @@ const FridgeComparison = () => {
         },
         body: JSON.stringify({
           prolificId,
-          endTime: new Date(),
+          // endTime: new Date(),
           selectedOption,
         }),
       });
@@ -105,6 +162,8 @@ const FridgeComparison = () => {
 
       const data = await response.json();
       console.log('User updated successfully:', data);
+
+      addSelectFridgeClick(prolificId);
 
       navigate('/surveyform');
     } catch (error) {
@@ -141,7 +200,7 @@ const FridgeComparison = () => {
             <tr>
               <th className="py-2 px-4 border-b"></th>
               {fridgesToCompare.map((fridge, index) => (
-                <th key={index} className="py-2 px-4 border-b text-center">{fridge.name}</th>
+                <th key={index} className="py-2 px-4 border-b text-center"><img src={fridge.fridgeLogo} alt='fridgeLogo' className='ml-auto mr-auto' /></th>
               ))}
             </tr>
           </thead>

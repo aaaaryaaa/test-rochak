@@ -116,6 +116,7 @@ const userSchema = new mongoose.Schema({
     [
       {
         fridgeName: String,
+        fridgeNameId: String,
         selectTime: Date,
       },
     ],
@@ -124,6 +125,14 @@ const userSchema = new mongoose.Schema({
   formData: {
     type: Object,
     default: {},
+  },
+  comparisonClick: {
+    type: [Date], // Array of dates for comparison clicks
+    default: [],
+  },
+  selectFridgeClick: {
+    type: [Date], // Array of dates
+    default: [],
   },
 });
 
@@ -284,6 +293,53 @@ app.patch('/api/users/updateform', async (req, res) => {
   }
 });
 
+// API route to add a timestamp to comparisonClick
+app.patch('/api/users/:prolificId/comparison-click', async (req, res) => {
+  const { prolificId } = req.params;
+  const { timestamp } = req.body; // Expecting timestamp in the request body
+
+  try {
+    // Find the user by prolificId
+    const user = await User.findOne({ prolificId });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Add the provided timestamp to the comparisonClick array
+    user.comparisonClick.push(new Date(timestamp));
+
+    await user.save();
+
+    res.status(200).json({ message: 'Comparison click timestamp added successfully', user });
+  } catch (error) {
+    console.error('Error updating comparisonClick:', error);
+    res.status(500).json({ message: 'Failed to update comparisonClick' });
+  }
+});
+
+// API route to add a timestamp to selectFridgeClick
+app.patch('/api/users/:prolificId/select-fridge-click', async (req, res) => {
+  const { prolificId } = req.params;
+  const { timestamp } = req.body; // Expecting timestamp in the request body
+
+  try {
+    // Find the user by prolificId
+    const user = await User.findOne({ prolificId });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Add the provided timestamp to the selectFridgeClick array
+    user.selectFridgeClick.push(new Date(timestamp));
+
+    await user.save();
+
+    res.status(200).json({ message: 'Select fridge click timestamp added successfully', user });
+  } catch (error) {
+    console.error('Error updating selectFridgeClick:', error);
+    res.status(500).json({ message: 'Failed to update selectFridgeClick' });
+  }
+});
 
 
 //Fridge Schema
@@ -291,6 +347,12 @@ const fridgeSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
+    },
+    nameId: {
+        type: String
+    },
+    fridgeLogo: {
+        type: String
     },
     fridgeImage: {
       type: String,

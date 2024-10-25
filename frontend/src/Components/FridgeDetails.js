@@ -6,7 +6,10 @@ const FridgeDetails = ({ fridge }) => {
         <div className="fixed bottom-10 fridge-card p-4 border rounded-lg shadow-md mb-4 flex justify-around w-[full] h-[full]">
             <img src={fridge.fridgeImage} alt="Fridge" className="m-4 h-[18rem]" />
             <div>
-                <p className='text-lg font-bold'>{fridge.name.toUpperCase()}</p>
+                {/* <p className='text-lg font-bold'>{fridge.name.toUpperCase()}</p> */}
+                <div className='w-full'>
+                    <img src={fridge.fridgeLogo} alt="fridgeLogo" className='ml-auto mr-auto' />
+                  </div>
                 <img src={fridge.reviewImage} alt="Review" className="h-[2rem]" />
                 <p className="font-bold text-lg">${fridge.price}</p>
                 <p className='text-[0.8rem]'>Dimensions: {fridge.dimensions.height} x {fridge.dimensions.width} x {fridge.dimensions.depth} inches</p>

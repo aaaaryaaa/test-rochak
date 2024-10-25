@@ -79,7 +79,7 @@ const shuffleArray = (array) => {
 const Page3 = () => {
   const navigate = useNavigate();
   const [hoveredFridge, setHoveredFridge] = useState(null);
-  const [fridges, setFridges] = useState(fridgeData);
+  const [fridges, setFridges] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   // const [selectedFridges, setSelectedFridges] = useState([]);
@@ -106,13 +106,27 @@ const Page3 = () => {
     fetchFridges();
   }, []);
 
-  const handleSelectFridge = (fridgeName) => {
-    if (selectedFridges.includes(fridgeName)) {
-      setSelectedFridges(selectedFridges.filter((name) => name !== fridgeName));
+  const handleSelectFridge = (fridgeName, fridgeNameId) => {
+    const currentTime = new Date().toISOString();
+
+    // Check if the fridge is already selected
+    const fridgeIndex = selectedFridges.findIndex(
+      (item) => item.fridgeName === fridgeName
+    );
+
+    if (fridgeIndex !== -1) {
+      // If already selected, remove it
+      const updatedFridges = selectedFridges.filter(
+        (item) => item.fridgeName !== fridgeName
+      );
+      setSelectedFridges(updatedFridges);
     } else {
+      // If not selected and selection count is below 4, add it with the timestamp
       if (selectedFridges.length < 4) {
-        setSelectedFridges([...selectedFridges, fridgeName]);
-        console.log([...selectedFridges, fridgeName]);
+        setSelectedFridges([
+          ...selectedFridges,
+          { fridgeName, selectTime: currentTime, fridgeNameId },
+        ]);
       } else {
         alert('You can only select a maximum of 4 fridges.');
       }
@@ -121,28 +135,38 @@ const Page3 = () => {
 
   const isDisabled = (fridgeName) => {
     return (
-      selectedFridges.length >= 4 && !selectedFridges.includes(fridgeName)
+      selectedFridges.length >= 4 &&
+      !selectedFridges.some((item) => item.fridgeName === fridgeName)
     );
   };
 
-  // const handleCompareClick = () => {
-  //   if (selectedFridges.length < 2) {
-  //     alert('Please select at least 2 fridges for comparison.');
-  //     return;
-  //   }
-  //   navigate(`/fridgecomparison`);
-  // };
+  async function addComparisonClick(prolificId) {
+    const timestamp = new Date().toISOString(); // Get the current timestamp in ISO format
+    try {
+      const response = await fetch(`${BaseUrl}/api/users/${prolificId}/comparison-click`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ timestamp }), // Send the timestamp in the request body
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to add comparison click');
+      }
+  
+      const data = await response.json();
+      console.log(data.message); // Handle the response as needed
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
   const handleCompareClick = async () => {
     if (selectedFridges.length < 2) {
       alert('Please select at least 2 fridges for comparison.');
       return;
     }
-  
-    // Attach the current timestamp to each selected fridge
-    const selectedFridgesWithTime = selectedFridges.map(fridgeName => ({
-      fridgeName,
-      selectTime: new Date().toISOString() // Use ISO string format for consistency
-    }));
   
     try {
       // Replace 'userId' with the actual user ID you want to update
@@ -153,7 +177,7 @@ const Page3 = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          fridgeSelection: selectedFridgesWithTime
+          fridgeSelection: selectedFridges
         })
       });
   
@@ -163,6 +187,8 @@ const Page3 = () => {
   
       const data = await response.json();
       console.log('Fridge selection updated successfully:', data);
+
+      addComparisonClick(prolificId);
   
       // Navigate to the comparison page
       navigate(`/fridgecomparison`);
@@ -188,7 +214,10 @@ const Page3 = () => {
                 <div
                   className="fridge-details flex-col gap-4"
                 >
-                  <p className='text-lg font-bold'>{fridge.name.toUpperCase()}</p>
+                  {/* <p className='text-lg font-bold'>{fridge.name.toUpperCase()}</p> */}
+                  <div className='w-full'>
+                    <img src={fridge.fridgeLogo} alt="fridgeLogo" className='ml-auto mr-auto' />
+                  </div>
                   <p className="fridge-price">${fridge.price}</p>
                   <div className="fridge-rating">
                     <img src={fridge.reviewImage} alt="Rating" />
@@ -212,8 +241,10 @@ const Page3 = () => {
                 <label className="space-x-2 ml-auto mr-auto w-full">
                   <input
                     type="checkbox"
-                    checked={selectedFridges.includes(fridge.name)}
-                    onChange={() => handleSelectFridge(fridge.name)}
+                    checked={selectedFridges.some(
+                      (item) => item.fridgeName === fridge.name
+                    )}
+                    onChange={() => handleSelectFridge(fridge.name, fridge.nameId)}
                     disabled={isDisabled(fridge.name)}
                     className="form-checkbox h-3 w-3 text-blue-600 rounded focus:ring focus:ring-offset-0 focus:ring-blue-500 disabled:opacity-50"
                   />
