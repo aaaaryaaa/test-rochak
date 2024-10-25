@@ -55,37 +55,76 @@ mongoose.connect(process.env.MONGO_URI, {
 // const User = mongoose.model('User', userSchema);
 
 // Updated User schema
+// const userSchema = new mongoose.Schema({
+//   prolificId: {
+//     type: String,
+//     required: true,
+//     unique: true
+//   },
+//   startTime: {
+//     type: Date,
+//     default: Date.now
+//   },
+//   endTime: {
+//     type: Date,
+//     default: Date.now
+//   },
+//   page: {
+//     type: String,
+//     default: ""
+//   },
+//   selectedOption: {
+//     type: String,
+//     default: ""
+//   },
+//   // New field to store an array of arrays (matrix) of selected fridges
+//   fridgeSelectionMatrix: [
+//     [
+//       {
+//         fridgeName: String,
+//         selectTime: Date
+//       }
+//     ]
+//   ]
+// });
+
+//updated userSchema with formData
 const userSchema = new mongoose.Schema({
   prolificId: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   startTime: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   endTime: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   page: {
     type: String,
-    default: ""
+    default: "",
   },
   selectedOption: {
     type: String,
-    default: ""
+    default: "",
   },
   // New field to store an array of arrays (matrix) of selected fridges
   fridgeSelectionMatrix: [
     [
       {
         fridgeName: String,
-        selectTime: Date
-      }
-    ]
-  ]
+        selectTime: Date,
+      },
+    ],
+  ],
+  // New field to store survey responses
+  formData: {
+    type: Object,
+    default: {},
+  },
 });
 
 const User = mongoose.model('User', userSchema);
@@ -221,6 +260,30 @@ app.patch('/api/users/:prolificId/updateFridgeSelection', async (req, res) => {
     res.status(500).json({ message: 'Failed to update fridge selection' });
   }
 });
+
+// PATCH route to update user with survey data
+app.patch('/api/users/updateform', async (req, res) => {
+  const { prolificId, endTime, formData } = req.body;
+
+  try {
+    // Update the user by prolificId, adding formData to the user schema
+    const user = await User.findOneAndUpdate(
+      { prolificId },
+      { endTime, formData },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json({ message: 'User updated successfully', user });
+  } catch (error) {
+    console.error('Error updating user:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 
 //Fridge Schema

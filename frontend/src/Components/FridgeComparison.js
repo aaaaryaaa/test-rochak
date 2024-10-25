@@ -106,7 +106,7 @@ const FridgeComparison = () => {
       const data = await response.json();
       console.log('User updated successfully:', data);
 
-      navigate('/restofsurvey');
+      navigate('/surveyform');
     } catch (error) {
       setError(error.message);
     }
