@@ -128,7 +128,7 @@ const Page2 = () => {
       }
   
       const result = await response.json();
-      console.log('User updated successfully:', result);
+      // console.log('User updated successfully:', result);
     } catch (error) {
       console.error('Error updating shuffledFridges:', error);
     }
@@ -184,7 +184,7 @@ const Page2 = () => {
       }
   
       const data = await response.json();
-      console.log(data.message); // Handle the response as needed
+      // console.log(data.message); // Handle the response as needed
     } catch (error) {
       console.error('Error:', error);
     }
@@ -214,7 +214,7 @@ const Page2 = () => {
       }
   
       const data = await response.json();
-      console.log('Fridge selection updated successfully:', data);
+      // console.log('Fridge selection updated successfully:', data);
 
       addComparisonClick(prolificId);
   
