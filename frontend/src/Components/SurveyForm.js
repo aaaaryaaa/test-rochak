@@ -86,7 +86,7 @@ const SurveyForm = () => {
     }
 
     // Check demographics (if needed)
-    const demographicFields = ['age', 'gender', 'ethnicBackground', 'englishProficiency', 'fridgePurchase'];
+    const demographicFields = ['age', 'gender', 'fridgePurchase'];
     for (let field of demographicFields) {
       if (!surveyData.demographics[field]) {
         return false; // Field is empty
@@ -143,7 +143,7 @@ const SurveyForm = () => {
   return (
     <div className="max-w-3xl mx-auto p-4">
         <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-6">
-        <h2 className="text-xl font-bold mt-9">Please respond to the following questions by selecting the appropriate option on a scale from 1 (none at all) to 5 (a great deal).</h2>
+        <h2 className="text-xl font-bold mt-9">Please respond to the following questions by selecting the appropriate option.</h2>
         <div className='text-center'>
             {/* Ex1Expertise in product category */}
             <label className="block font-medium mt-7">How much expertise do you think Frostbyte has in product category?</label>
@@ -440,7 +440,7 @@ const SurveyForm = () => {
             </div>
 
 
-            <h2 className="text-xl font-bold mt-9">Please respond to the following statements by selecting the appropriate option on a scale from 1 (strongly disagree) to 7 (strongly agree).</h2>
+            <h2 className="text-xl font-bold mt-9">Please respond to the following statements by selecting the appropriate option.</h2>
             <div className='text-center'>
             {/* MS1 */}
             <label className="block font-medium mt-7">When I am in the car listening to the radio, I often check other stations to see if something better is playing, even if I’m relatively satisfied with what I’m listening to.</label>
@@ -546,8 +546,8 @@ const SurveyForm = () => {
             </div>
 
 
-            <h2 className="text-xl font-bold mt-9">Demographic Questions</h2>
             <div>
+            {/*Demographic Questions*/}
             {/* Gender */}
             <label className="block font-medium mt-7">What is your gender?</label>
             <div className="flex flex-col p-1">
@@ -575,48 +575,6 @@ const SurveyForm = () => {
                 className="block m-1 p-1 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
 
-            {/* Ethnic Background */}
-            <label className="block font-medium mt-7">What is your ethnic background?</label>
-            <div className="flex flex-col p-1">
-                {[
-                'White / Caucasian',
-                'Asian - Eastern',
-                'Asian - Indian',
-                'Hispanic',
-                'African-American',
-                'Native-American',
-                'Mixed race',
-                'Other',
-                ].map((option) => (
-                <label key={`ethnicBackground-${option}`} className='p-1'>
-                    <input
-                    type="radio"
-                    name="ethnicBackground"
-                    value={option}
-                    checked={surveyData.demographics.ethnicBackground === option}
-                    onChange={(e) => handleInputChange('demographics', 'ethnicBackground', e.target.value)}
-                    />
-                    {option}
-                </label>
-                ))}
-            </div>
-
-            {/* English Proficiency */}
-            <label className="block font-medium mt-7">Rate your English language proficiency (1 = Extremely low, 7 = Extremely high)</label>
-            <div className="flex space-x-4 p-1">
-                {[1, 2, 3, 4, 5, 6, 7].map((value) => (
-                <label key={`englishProficiency-${value}`} className='p-1'>
-                    <input
-                    type="radio"
-                    name="englishProficiency"
-                    value={value}
-                    checked={surveyData.demographics.englishProficiency === value}
-                    onChange={(e) => handleInputChange('demographics', 'englishProficiency', parseInt(e.target.value))}
-                    />
-                    {value}
-                </label>
-                ))}
-            </div>
 
             {/* Fridge Purchase */}
             <label className="block font-medium mt-7">Have you ever been involved in a refrigerator purchase in the last 3 years?</label>

@@ -42,8 +42,7 @@ const InfoPage2 = () => {
 
     return (
         <div className="flex flex-col justify-center min-h-screen p-4 mx-60">
-            <h2 className="text-2xl font-bold mb-4">Instructions</h2>
-            <p className="mb-4">
+            <p className="text-2xl mb-4">
                 Further you will be presented with various refrigerator models from these four brands. Hover on any model to view its full specifications, which would be displayed on the right side of the screen.
                 You are free to select up to 4 models for comparison. The interactive design allows you to revisit the options screen at any time to adjust the models you are comparing.
                 Once you’ve completed your comparisons, you’ll be prompted to make a final choice from the options you’ve selected.

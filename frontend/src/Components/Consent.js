@@ -15,12 +15,11 @@ const Consent = () => {
 
     return (
         <div className="flex flex-col  justify-center min-h-screen p-4 mx-60">
-            <h2 className="text-2xl text-left font-bold mb-4">Form of Consent</h2>
-            <p className="mb-4">
-                This study seeks to understand how you evaluate products and will require only about a few minutes of your time. There are no right or wrong answers. It is extremely important that you read the questions carefully and provide your true assessments.
+            <p className="text-2xl mb-4">
+                This study helps us understand how people evaluate products. There are no right or wrong answers. It is extremely important that you read the questions carefully and provide your true assessments.
             </p>
-            <p className="mb-4">
-                Your responses are anonymous, and the data will be used for academic purposes only. If you have any questions about the study, please contact <a href="mailto:rochak.khandelwal20@iimb.ac.in" className="text-blue-500">rochak.khandelwal20@iimb.ac.in</a>.
+            <p className="text-2xl mb-4">
+                Your responses are anonymous, and the data will be used for academic purposes only. Thank you for your time and support. Please indicate your consent by clicking on the appropriate button below.
             </p>
             {/* <div className="flex flex-col mb-4">
                 <label className="flex items-center">
