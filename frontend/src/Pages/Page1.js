@@ -1,6 +1,7 @@
 // pages/Page1.js
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../index.css'; // Ensure the CSS file is imported
 
 const Page1 = () => {
     const navigate = useNavigate();
@@ -25,15 +26,15 @@ const Page1 = () => {
     };
 
     return (
-        <div className="flex flex-col justify-center min-h-screen p-4 mx-60">
-            <h2 className="text-2xl font-bold mb-4">Disclaimer</h2>
-            <p className="mb-4">
-              Notably, FrostByte holds a large number of patents related to refrigeration technology, particularly focused on extending the freshness of food items.
-            </p>
+        <div className="page1 flex flex-col justify-center min-h-screen p-4 mx-60">
             <div className='flex flex-col items-center'>
                 <img className='w-[30rem] pt-1' src='https://res.cloudinary.com/daja3mrty/image/upload/v1729478338/frostbytelogo_mllxak.jpg'></img>
                 <img className='w-[30rem] pb-1' src='https://res.cloudinary.com/daja3mrty/image/upload/v1729478359/frostbytemoto_fi4kc0.jpg'></img>
             </div>
+            <p className="text-2xl mb-4">
+              FrostByte is known for its innovation and holds a large number of patents related to refrigeration technology, particularly focused on extending the freshness of food items.
+            </p>
+
             {/* <button onClick={handleNext} className="px-4 py-2 bg-blue-500 text-white rounded">
                 Next
             </button> */}
@@ -44,7 +45,7 @@ const Page1 = () => {
                 isDisabled ? 'bg-gray-400' : 'bg-blue-500'
             } text-white`}
         >
-            {isDisabled ? `Wait ${timeLeft} seconds` : 'Next'}
+            {isDisabled ? `Wait ${timeLeft} seconds` : '→'}
         </button>
         </div>
     );

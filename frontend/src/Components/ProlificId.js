@@ -37,13 +37,16 @@ const ProlificId = () => {
                 className="mb-4 px-4 py-2 border border-gray-300 rounded"
             />
             <CaptchaComponent setVerified={setVerified} />
-            <button
-                onClick={handleNext}
-                className={`px-4 py-2 w-full bg-blue-500 text-white rounded ${!prolificId || !verified ? 'opacity-50 cursor-not-allowed' : ''}`}
-                disabled={!prolificId || !verified}
-            >
-                Next
-            </button>
+            <div className="flex justify-end w-full">  {/* Ensures right alignment */}
+                <button
+                    onClick={handleNext}
+                    className="flex items-center justify-center px-5 py-2 text-white rounded-lg"
+                    style={{ backgroundColor: '#007AC0', fontSize: '28px'}}
+                    disabled={!prolificId || !verified}
+                >
+                    →
+                </button>
+            </div>
         </div>
     );
 };

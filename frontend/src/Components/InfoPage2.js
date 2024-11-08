@@ -48,9 +48,15 @@ const InfoPage2 = () => {
                 You are free to select up to 4 models for comparison. The interactive design allows you to revisit the options screen at any time to adjust the models you are comparing.
                 Once you’ve completed your comparisons, you’ll be prompted to make a final choice from the options you’ve selected.
             </p>
-            <button onClick={handleRedirect} disabled={loading} className="px-4 py-2 bg-blue-500 text-white rounded">
-                Next
+            <div className="flex justify-end">  {/* Ensures right alignment */}
+            <button
+                onClick={handleRedirect} disabled={loading}
+                className="flex items-center justify-center px-5 py-2 text-white rounded-lg"
+                style={{ backgroundColor: '#007AC0' }} 
+                >
+                    →
             </button>
+            </div>
         </div>
     );
 };

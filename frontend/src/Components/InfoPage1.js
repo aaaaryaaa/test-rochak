@@ -18,9 +18,15 @@ const InfoPage1 = () => {
             <p className='text-2xl mb-4'>
             After some initial research, you narrowed your search to the options offered by four brands: <span className="frostbyte">FrostByte</span>, <span className="coolnest">CoolNest</span>, <span className="chillcore">ChillCore</span>, and <span className="polarpeak">PolarPeak</span>.
             </p>
-            <button onClick={handleNext} className="px-4 py-2 bg-blue-500 text-white rounded">
-                Next
-            </button>
+            <div className="flex justify-end">  {/* Ensures right alignment */}
+            <button 
+                    onClick={handleNext} 
+                    className="flex items-center justify-center px-5 py-2 text-white rounded-lg"
+                    style={{ backgroundColor: '#007AC0' }}  // Change background color to #007AC0
+                >
+                    →
+                </button>
+            </div>
         </div>
     );
 };
