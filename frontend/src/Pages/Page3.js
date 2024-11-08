@@ -276,7 +276,7 @@ const Page3 = () => {
                     disabled={isDisabled(fridge.name)}
                     className="form-checkbox h-3 w-3 text-blue-600 rounded focus:ring focus:ring-offset-0 focus:ring-blue-500 disabled:opacity-50"
                   />
-                  <span className="text-blue-400 text-sm">Select this fridge</span>
+                  <span className="text-blue-400 text-sm">Compare</span>
                 </label>
 
             </div>

@@ -176,7 +176,7 @@ const FridgeComparison = () => {
 
   // Prepare the attributes for comparison
   const attributes = [
-    { label: 'Fridge Image', key: 'fridgeImage', format: (value) => <img src={value} alt="Fridge" className="max-h-40 mx-auto" /> },
+    { label: '', key: 'fridgeImage', format: (value) => <img src={value} alt="Fridge" className="max-h-40 mx-auto" /> },
     { label: 'Price', key: 'price' },
     { label: 'Dimensions (H x W x D)', key: 'dimensions', format: (value) => `${value.height} x ${value.width} x ${value.depth} in` },
     { label: 'Cooling Space', key: 'coolingSpace', suffix: ' Cu. Ft.' },
@@ -219,14 +219,14 @@ const FridgeComparison = () => {
             ))}
             {/* Add an extra row for the Select button */}
             <tr>
-              <td className="py-2 px-4 border-b font-semibold">Select</td>
+              <td className="py-2 px-4 border-b font-semibold"></td>
               {fridgesToCompare.map((fridge, idx) => (
                 <td key={idx} className="py-2 px-4 border-b text-center">
                   <button
                     className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-gray-400 mt-4"
                     onClick={() => handleSelection(fridge.name)}
                   >
-                    Select
+                    Add to cart
                   </button>
                 </td>
               ))}
@@ -238,7 +238,7 @@ const FridgeComparison = () => {
         className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-gray-400 mt-4"
         onClick={() => handleSelection('nota')}
       >
-        Select none of these
+        Add none of these
       </button>
     </div>
   );

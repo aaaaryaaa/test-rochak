@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import BaseUrl from '../BaseUrl';
+import '../index.css'; // Ensure the CSS file is imported
 
 export default function RestOfSurvey() {
     const [user, setUser] = useState(null);
@@ -51,8 +52,10 @@ export default function RestOfSurvey() {
   }, []);
 
   return (
-    <div className='flex flex-col justify-center min-h-screen p-4 mx-60'>
-        <div className='p-5 text-center w-full '>Thank you for taking part in this study. Please click the button below to be redirected back to Prolific and register your submission.</div>
+    <div className='restofsurvey flex flex-col justify-center min-h-screen p-4 mx-60'>
+        <p className="text-2xl mb-4">
+        Thank you for taking part in this study. Please click the button below to be redirected back to Prolific and register your submission.
+            </p>
         <a className='px-4 py-2 bg-blue-500 text-white rounded text-center' href='https://app.prolific.com/submissions/complete?cc=C1F8S210'>Submit</a>
         {/* {time && (<div>Time taken: {time}</div>)} */}
     </div>

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BaseUrl from '../BaseUrl';
 import axios from 'axios';
+import '../index.css'; // Ensure the CSS file is imported
 
 const InfoPage2 = () => {
     const navigate = useNavigate();
@@ -41,7 +42,7 @@ const InfoPage2 = () => {
     // };
 
     return (
-        <div className="flex flex-col justify-center min-h-screen p-4 mx-60">
+        <div className="infopage2 flex flex-col justify-center min-h-screen p-4 mx-60">
             <p className="text-2xl mb-4">
                 Further you will be presented with various refrigerator models from these four brands. Hover on any model to view its full specifications, which would be displayed on the right side of the screen.
                 You are free to select up to 4 models for comparison. The interactive design allows you to revisit the options screen at any time to adjust the models you are comparing.

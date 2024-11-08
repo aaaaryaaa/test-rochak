@@ -1,3 +1,43 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* General font and size for consent, infopage1, infopage2, restofsurvey, noconsent */
+.consent, .infopage1, .infopage2, .restofsurvey, .noconsent {
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+}
+
+/* Make all text in the .consent class italic */
+.noconsent {
+    font-style: italic;
+}
+
+/* Specific styles for the four words */
+.frostbyte {
+    font-family: 'Barlow', sans-serif;
+    font-style: italic;
+    font-size: 32px;
+    color: #142a6f;
+}
+
+.coolnest {
+    font-family: 'Barlow', sans-serif;
+    font-style: italic;
+    font-size: 32px;
+    color: #00bf63;
+}
+
+.chillcore {
+    font-family: 'Barlow', sans-serif;
+    font-style: italic;
+    font-size: 32px;
+    color: #8d03b4;
+}
+
+.polarpeak {
+    font-family: 'Barlow', sans-serif;
+    font-style: italic;
+    font-size: 32px;
+    color: #5e17eb;
+}

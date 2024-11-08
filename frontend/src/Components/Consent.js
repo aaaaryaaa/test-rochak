@@ -1,6 +1,7 @@
 // components/Consent.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../index.css'; // Ensure the CSS file is imported
 
 const Consent = () => {
     const navigate = useNavigate();
@@ -14,7 +15,7 @@ const Consent = () => {
     };
 
     return (
-        <div className="flex flex-col  justify-center min-h-screen p-4 mx-60">
+        <div className="consent flex flex-col justify-center min-h-screen p-4 mx-60">
             <p className="text-2xl mb-4">
                 This study helps us understand how people evaluate products. There are no right or wrong answers. It is extremely important that you read the questions carefully and provide your true assessments.
             </p>
