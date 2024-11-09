@@ -165,7 +165,7 @@ const FridgeComparison = () => {
 
       addSelectFridgeClick(prolificId);
 
-      navigate('/surveyform');
+      navigate('/testform');
     } catch (error) {
       setError(error.message);
     }

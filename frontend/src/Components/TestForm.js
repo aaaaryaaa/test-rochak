@@ -3,47 +3,10 @@ import axios from 'axios';
 import BaseUrl from '../BaseUrl';
 import { useNavigate } from 'react-router-dom';
 
-const SurveyForm = () => {
-    const navigate = useNavigate();
-//   const [surveyData, setSurveyData] = useState({
-//     pageA: {
-//         Ex1expertise: null,
-//         Ex2knowledge: null,
-//         Ex3commitmentUS: null,
-//         Ex4commitmentCategory: null,
-//         Ex5investmentCategory: null,
-//     },
-//     specificEvents: {
-//       RFQ1unableToGetWhatYouWant: null,
-//       RFQ2crossTheLine: null,
-//       RFQ3accomplishmentsPsyched: null,
-//       RFQ4getOnParentsNerves: null,
-//       RFQ5obeyRules: null,
-//       ACreadCarefully: null,
-//       RFQ6actObjectionable: null,
-//       RFQ7doWellAtThings: null,
-//       RFQ8notCarefulTrouble: null,
-//       RFQ9underperformingGoals: null,
-//       RFQ10progressTowardSuccess: null,
-//       RFQ11fewHobbiesInterest: null,
-//     },
-//     satisfactionStatements: {
-//       MS1carRadioCheckStations: null,
-//       MS2lookoutBetterJobs: null,
-//       MS3shopForGift: null,
-//       MS4rentingVideosDifficult: null,
-//       MS5highestStandards: null,
-//       MS6neverSettleSecondBest: null,
-//     },
-//     demographics: {
-//       age: '',
-//       gender: '',
-//       ethnicBackground: '',
-//       englishProficiency: null,
-//       fridgePurchase: '',
-//     },
-//   });
-    const [surveyData, setSurveyData] = useState({
+const TestForm = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate();
+  const [surveyData, setSurveyData] = useState({
     pageA: {
       Ex1expertise: null,
       Ex2knowledge: null,
@@ -76,8 +39,6 @@ const SurveyForm = () => {
     demographics: {
       age: '',
       gender: '',
-      ethnicBackground: '',
-      englishProficiency: null,
       fridgePurchase: '',
       MC1brandInnovative: '',       // Added for MC1
       MC2frostByteInfoTime: '',    // Added for MC2
@@ -85,6 +46,10 @@ const SurveyForm = () => {
       AC2otherReadCarefully: ''
     },
   });
+
+  //removed fields from surveyform
+//   ethnicBackground: '',
+//   englishProficiency: null,
 
   // Handling input changes for each section
   const handleInputChange = (section, field, value) => {
@@ -183,16 +148,35 @@ const SurveyForm = () => {
       // Make PATCH request to the server
       const response = await axios.patch(`${BaseUrl}/api/users/updateform`, dataToSubmit);
     //   console.log(response);
-      navigate("/restofsurvey")
+      navigate("/restofsurvey");
     } catch (error) {
       console.error('Error submitting survey:', error);
     }
   };
 
-  return (
-    <div className="max-w-4xl mx-auto p-4">
-        <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-6">
-        <h2 className="que text-xl mt-9">Please respond to the following questions by selecting the appropriate option.</h2>
+  // Total number of pages
+  const totalPages = 4;
+
+  // Handle Next and Previous page navigation
+  const goToNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const goToPreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  // Render the appropriate content for the current page
+  const renderPageContent = () => {
+    switch (currentPage) {
+      case 1:
+        return (
+          <div>
+            <h2 className="que text-xl mt-9">Please respond to the following questions by selecting the appropriate option.</h2>
         <div className=''>
             {/* Ex1Expertise in product category */}
             <label className="que block font-medium mt-7">How much expertise do you think Frostbyte has in product category?</label>
@@ -278,9 +262,29 @@ const SurveyForm = () => {
                 </label>
                 ))}| a great deal
             </div>
-            </div>
 
-        
+            {/* AC */}
+            <label className="que block font-medium mt-7">Research shows that over 50% of people don't read questions carefully. If you are reading this question carefully, please select the fourth option from the left.</label>
+            <div className="ans flex space-x-4 justify-center">never or seldom |
+                {[1, 2, 3, 4, 5].map((value) => (
+                <label key={`ACreadCarefully-${value}`} className='p-1'>
+                    <input
+                    type="radio"
+                    name="ACreadCarefully"
+                    value={value}
+                    checked={surveyData.specificEvents.ACreadCarefully === value}
+                    onChange={(e) => handleInputChange('specificEvents', 'ACreadCarefully', parseInt(e.target.value))}
+                    />
+                    {/* {value} */}
+                </label>
+                ))}| always
+            </div>
+            </div>
+          </div>
+        );
+      case 2:
+        return (
+          <div>
             <h2 className="que text-xl mt-9">This set of questions asks you about specific events in your life. Please indicate your answer to each question by selecting the appropriate option.</h2>
             <div className=''>
             {/* RFQ1 */}
@@ -362,23 +366,6 @@ const SurveyForm = () => {
                     value={value}
                     checked={surveyData.specificEvents.RFQ5obeyRules === value}
                     onChange={(e) => handleInputChange('specificEvents', 'RFQ5obeyRules', parseInt(e.target.value))}
-                    />
-                    {/* {value} */}
-                </label>
-                ))}| always
-            </div>
-
-            {/* AC */}
-            <label className="que block font-medium mt-7">Research shows that over 50% of people don't read questions carefully. If you are reading this question carefully, please select the fourth option from the left.</label>
-            <div className="ans flex space-x-4 justify-center">never or seldom |
-                {[1, 2, 3, 4, 5].map((value) => (
-                <label key={`ACreadCarefully-${value}`} className='p-1'>
-                    <input
-                    type="radio"
-                    name="ACreadCarefully"
-                    value={value}
-                    checked={surveyData.specificEvents.ACreadCarefully === value}
-                    onChange={(e) => handleInputChange('specificEvents', 'ACreadCarefully', parseInt(e.target.value))}
                     />
                     {/* {value} */}
                 </label>
@@ -487,8 +474,11 @@ const SurveyForm = () => {
                 ))}| certainly true
             </div>
             </div>
-
-
+          </div>
+        );
+      case 3:
+        return (
+          <div>
             <h2 className="que text-xl mt-9">Please respond to the following statements by selecting the appropriate option.</h2>
             <div className=''>
             {/* MS1 */}
@@ -593,8 +583,10 @@ const SurveyForm = () => {
                 ))}| Strongly agree
             </div>
             </div>
-
-
+          </div>
+        );
+      case 4:
+        return(
             <div>
             {/*Demographic Questions*/}
             <h2 className="que text-xl mt-9">Please respond to these demographic questions by selecting the appropriate option.</h2>
@@ -724,14 +716,50 @@ const SurveyForm = () => {
                 ))}
             </div>
             </div>
+        );
+      default:
+        return <div>Invalid Page</div>;
+    }
+  };
 
+  return (
+    <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-6 mx-[10rem] my-[3rem]">
+      {renderPageContent()}
 
-        <button type="submit" className="mt-4 w-full bg-blue-500 text-white font-semibold py-2 rounded hover:bg-blue-600 transition duration-200">
-            Next
-        </button>
-        </form>
-    </div>
+      <div className="flex justify-end gap-5 mt-6">
+        {currentPage > 1 && (
+          <button
+            type="button"
+            onClick={goToPreviousPage}
+            className="flex items-center justify-center px-5 py-2 text-white rounded-lg bg-[#007AC0] hover:bg-[#007AC0]"
+          >
+            ←
+          </button>
+        )}
+
+        {/* Show Next button only if it's not the last page */}
+        {currentPage < totalPages && (
+          <button
+            type="button"
+            onClick={goToNextPage}
+            className="flex items-center justify-center px-5 py-2 text-white rounded-lg bg-[#007AC0] hover:bg-[#007AC0]"
+          >
+            →
+          </button>
+        )}
+
+        {/* Show Submit button only on the last page */}
+        {currentPage === totalPages && (
+          <button
+            type="submit"
+            className="bg-green-500 text-white px-4 py-2 rounded"
+          >
+            Submit
+          </button>
+        )}
+      </div>
+    </form>
   );
 };
 
-export default SurveyForm;
+export default TestForm;

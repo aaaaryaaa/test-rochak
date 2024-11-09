@@ -16,6 +16,7 @@ import RestOfSurvey from './Components/RestOfSurvey';
 import CaptchaComponent from './Components/CaptchaComponent';
 import NoConsent from './Components/NoConsent';
 import SurveyForm from './Components/SurveyForm';
+import TestForm from './Components/TestForm';
 
 const App = () => {
     // const [route, setRoute] = useState('');
@@ -56,6 +57,7 @@ const App = () => {
                     <Route path="/captcha" element={<CaptchaComponent />} />
                     <Route path="/noconsent" element={<NoConsent />} />
                     <Route path="/surveyform" element={<SurveyForm />} />
+                    <Route path="/testform" element={<TestForm />} />
                 </Routes>
             </Router>
         </AppProvider>

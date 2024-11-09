@@ -95,11 +95,21 @@ const Page3 = () => {
         }
         const data = await response.json();
         const shuffledFridges = shuffleArray(data); // Shuffle the fridges here
-        setFridges(shuffledFridges);
-  
-        const shuffledNameIds = shuffledFridges.map(fridge => fridge.nameId);
-        // Send the PATCH request to update the user's shuffledFridges field
-        await updateUserShuffledFridges(shuffledNameIds);
+
+        // Check if 'shuffledFridges' is already in sessionStorage
+        if (!sessionStorage.getItem('shuffledFridges')) {
+          
+          // If not, set the shuffled array and store it in sessionStorage
+          setFridges(shuffledFridges);
+          sessionStorage.setItem('shuffledFridges', JSON.stringify(shuffledFridges)); // Store it as a string
+          const shuffledNameIds = shuffledFridges.map(fridge => fridge.nameId);
+          // Send the PATCH request to update the user's shuffledFridges field
+          await updateUserShuffledFridges(shuffledNameIds);
+        } else {
+          // If it's already in sessionStorage, retrieve and parse it
+          const storedFridges = JSON.parse(sessionStorage.getItem('shuffledFridges')); // Parse it back into an array
+          setFridges(storedFridges);
+        }
   
       } catch (error) {
         setError(error.message);
@@ -233,11 +243,12 @@ const Page3 = () => {
     <div className="">
       <div className='flex'>
         <div className='fridge-list w-full'>
-          {fridges.map((fridge, index) => (
+        {fridges.map((fridge, index) => (
             <div key={index} className="fridge-item  p-3">
               <div className='flex justify-around'>
                 <div>
                   <img src={fridge.fridgeImage} alt="Refrigerator" className="fridge-image" />
+                  <p className="text-[1.1rem] font-medium mt-8">${fridge.price}</p>
                 </div>
                 <div
                   className="fridge-details flex-col gap-4"
@@ -246,13 +257,12 @@ const Page3 = () => {
                   <div className='w-full'>
                     <img src={fridge.fridgeLogo} alt="fridgeLogo" className='ml-auto mr-auto' />
                   </div>
-                  <p className="fridge-price">${fridge.price}</p>
-                  <div className="fridge-rating">
-                    <img src={fridge.reviewImage} alt="Rating" />
-                  </div>
                   <h3>{fridge.totalSpace} Cu. Ft. Refrigerator</h3>
                   <p>Cooling space: {fridge.coolingSpace} Cu. Ft.</p>
                   <p>Freezer space: {fridge.freezerSpace} Cu. Ft.</p>
+                  <div className="fridge-rating">
+                    <img src={fridge.reviewImage} alt="Rating" />
+                  </div>
                   <p className='py-5 text-blue-300' 
                   onMouseEnter={() => setHoveredFridge(fridge)}
                   onMouseLeave={() => setHoveredFridge(null)}
@@ -266,7 +276,7 @@ const Page3 = () => {
                   <FridgeDetails fridge={hoveredFridge} />
                 </div>
               )} */}
-                <label className="space-x-2 ml-auto mr-auto w-full">
+                <label className="space-x-2 relative left-32 bottom-5">
                   <input
                     type="checkbox"
                     checked={selectedFridges.some(

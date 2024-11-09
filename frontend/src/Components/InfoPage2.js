@@ -1,5 +1,5 @@
 // components/InfoPage2.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BaseUrl from '../BaseUrl';
 import axios from 'axios';
@@ -7,8 +7,39 @@ import '../index.css'; // Ensure the CSS file is imported
 
 const InfoPage2 = () => {
     const navigate = useNavigate();
+    const [user, setUser] = useState(null);
+    const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const prolificId = localStorage.getItem('prolificId'); // Retrieve prolificId from localStorage
+
+    useEffect(() => {
+        const prolificId = localStorage.getItem('prolificId'); // Get prolificId from localStorage
+    
+        const fetchUser = async () => {
+          try {
+            const response = await fetch(`${BaseUrl}/api/users/${prolificId}`);
+    
+            if (!response.ok) {
+              throw new Error('Failed to fetch user');
+            }
+    
+            const data = await response.json();
+            setUser(data.user);
+            console.log(user);
+          } catch (error) {
+            setError(error.message);
+          } finally {
+            setLoading(false);
+          }
+        };
+    
+        if (prolificId) {
+          fetchUser();
+        } else {
+          setError('No prolificId found');
+          setLoading(false);
+        }
+      }, []);
 
     const handleRedirect = () => {
         setLoading(true); // Set loading to true when button is clicked
@@ -16,7 +47,7 @@ const InfoPage2 = () => {
         // Fetch the route distribution logic from the server
         axios.get(`${BaseUrl}/api/route`)
             .then((response) => {
-                const targetRoute = response.data.route;
+                const targetRoute = user.page!==''? user.page : response.data.route;
 
                 // Make a PATCH request to update the user's page field
                 axios.patch(`${BaseUrl}/api/users/update-page`, {
@@ -24,7 +55,8 @@ const InfoPage2 = () => {
                     page: targetRoute
                 })
                 .then(() => {
-                    navigate(`/${targetRoute}`);
+                    if(user.page==='') navigate(`/${targetRoute}`);
+                    else navigate(`/${user.page}`);
                 })
                 .catch((error) => {
                     console.error('Error updating user page:', error);
