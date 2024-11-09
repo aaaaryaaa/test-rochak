@@ -38,14 +38,13 @@ const ProlificId = () => {
             />
             <CaptchaComponent setVerified={setVerified} />
             <div className="flex justify-end w-full">  {/* Ensures right alignment */}
-                <button
-                    onClick={handleNext}
-                    className="flex items-center justify-center px-5 py-2 text-white rounded-lg"
-                    style={{ backgroundColor: '#007AC0', fontSize: '28px'}}
-                    disabled={!prolificId || !verified}
-                >
-                    →
-                </button>
+            <button
+                onClick={handleNext}
+                className={`flex items-center justify-center px-5 py-2 text-[28px] text-white rounded-lg ${!prolificId || !verified ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#007AC0] hover:bg-[#007AC0]'}`}
+                disabled={!prolificId || !verified}
+            >
+                →
+            </button>
             </div>
         </div>
     );

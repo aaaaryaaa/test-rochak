@@ -88,7 +88,7 @@ const Consent = () => {
                 <div className="flex justify-end">
                 <button
                     onClick={handleNext}
-                    className={`w-24 py-2 text-white rounded-lg ${
+                    className={`flex items-center justify-center px-5 py-2 text-white rounded-lg ${
                         consent ? 'bg-[#007AC0] hover:bg-[#007AC0]' : 'bg-gray-400 cursor-not-allowed'
                     }`}
                     disabled={!consent}
