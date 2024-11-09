@@ -159,7 +159,39 @@ const TestForm = () => {
 
   // Handle Next and Previous page navigation
   const goToNextPage = () => {
-    if (currentPage < totalPages) {
+    let flag=true;
+    if(currentPage===1){
+      const pageAFields = Object.keys(surveyData.pageA);
+        for (let field of pageAFields) {
+        if (surveyData.pageA[field] === null) {
+          alert('Please fill all fields!');
+          return;//flag=false; // Field is empty
+        }
+      }
+      if(surveyData.specificEvents.ACreadCarefully === null){
+        alert("Please fill all details!");
+        return;
+      }
+    }
+    if(currentPage===2){
+      const specificEventsFields = Object.keys(surveyData.specificEvents);
+      for (let field of specificEventsFields) {
+        if (surveyData.specificEvents[field] === null) {
+          alert('Please fill all fields!');
+          return;//flag=false; // Field is empty
+        }
+      }
+    }
+    if(currentPage===3){
+      const satisfactionStatementsFields = Object.keys(surveyData.satisfactionStatements);
+      for (let field of satisfactionStatementsFields) {
+        if (surveyData.satisfactionStatements[field] === null) {
+          alert('Please fill all fields!');
+          return;//flag=false; // Field is empty
+        }
+      }
+    }
+    if (currentPage < totalPages && flag) {
       setCurrentPage(currentPage + 1);
     }
   };
@@ -727,7 +759,7 @@ const TestForm = () => {
       {renderPageContent()}
 
       <div className="flex justify-end gap-5 mt-6">
-        {currentPage > 1 && (
+        {/* {currentPage > 1 && (
           <button
             type="button"
             onClick={goToPreviousPage}
@@ -735,7 +767,7 @@ const TestForm = () => {
           >
             ←
           </button>
-        )}
+        )} */}
 
         {/* Show Next button only if it's not the last page */}
         {currentPage < totalPages && (
@@ -752,9 +784,9 @@ const TestForm = () => {
         {currentPage === totalPages && (
           <button
             type="submit"
-            className="bg-green-500 text-white px-4 py-2 rounded"
+            className="flex items-center justify-center px-5 py-2 text-white rounded-lg bg-[#007AC0] hover:bg-[#007AC0]"
           >
-            Submit
+            →
           </button>
         )}
       </div>
