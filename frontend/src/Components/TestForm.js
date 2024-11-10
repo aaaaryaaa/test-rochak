@@ -126,7 +126,7 @@ const TestForm = () => {
 
     // Validate form data
     if (!validateForm()) {
-        alert('Please fill in all the details before submitting.');
+        alert('Please answer all the questions.');
         return;
       }
 
@@ -164,7 +164,7 @@ const TestForm = () => {
       const pageAFields = Object.keys(surveyData.pageA);
         for (let field of pageAFields) {
         if (surveyData.pageA[field] === null) {
-          alert('Please fill all fields!');
+          alert('Please answer all the questions.');
           return;//flag=false; // Field is empty
         }
       }
@@ -177,7 +177,7 @@ const TestForm = () => {
       const specificEventsFields = Object.keys(surveyData.specificEvents);
       for (let field of specificEventsFields) {
         if (surveyData.specificEvents[field] === null) {
-          alert('Please fill all fields!');
+          alert('Please answer all the questions.');
           return;//flag=false; // Field is empty
         }
       }
@@ -186,7 +186,7 @@ const TestForm = () => {
       const satisfactionStatementsFields = Object.keys(surveyData.satisfactionStatements);
       for (let field of satisfactionStatementsFields) {
         if (surveyData.satisfactionStatements[field] === null) {
-          alert('Please fill all fields!');
+          alert('Please answer all the questions.');
           return;//flag=false; // Field is empty
         }
       }
@@ -202,17 +202,19 @@ const TestForm = () => {
     }
   };
 
+  
   // Render the appropriate content for the current page
   const renderPageContent = () => {
     switch (currentPage) {
       case 1:
         return (
-          <div>
+          <div className="testform flex flex-col justify-center min-h-screen p-4" style={{ marginLeft: '4rem', marginRight: '4rem' }}>
             <h2 className="que text-xl mt-9">Please respond to the following questions by selecting the appropriate option.</h2>
         <div className=''>
             {/* Ex1Expertise in product category */}
-            <label className="que block font-medium mt-7">How much expertise do you think Frostbyte has in product category?</label>
-            <div className="ans flex space-x-4 justify-center">none at all |
+            <label className="que block font-medium mt-7">How much expertise do you think <span className="frostbyte">FrostByte</span> has in the product category?</label>
+            <div className="opt flex space-x-4 justify-center">
+              <span style={{ marginRight: '0.5rem' }}>None at all</span>
                 {[1, 2, 3, 4, 5].map((value) => (
                 <label key={`Ex1expertise-${value}`} className='p-1'>
                     <input
@@ -224,12 +226,14 @@ const TestForm = () => {
                     />
                     {/* {value} */}
                 </label>
-                ))}| a great deal
+                ))}
+                <span style={{ marginLeft: '1.5rem' }}>A great deal</span>
             </div>
 
             {/* Ex2Knowledge regarding the product category */}
-            <label className="que block font-medium mt-7">How much knowledge Frostbyte has regarding the product category?</label>
-            <div className="ans flex space-x-4 justify-center">none at all |
+            <label className="que block font-medium mt-7">How much knowledge <span className="frostbyte">FrostByte</span> has regarding the product category?</label>
+            <div className="opt flex space-x-4 justify-center">
+            <span style={{ marginRight: '0.5rem' }}>None at all</span>
                 {[1, 2, 3, 4, 5].map((value) => (
                 <label key={`Ex2knowledge-${value}`} className='p-1'>
                     <input
@@ -241,12 +245,14 @@ const TestForm = () => {
                     />
                     {/* {value} */}
                 </label>
-                ))}| a great deal
+                ))}
+                <span style={{ marginLeft: '1.5rem' }}>A great deal</span>
             </div>
 
             {/* Commitment to success in the U.S. refrigerators market */}
-            <label className="que block font-medium mt-7">How committed do you think Frostbyte is to success in the U.S. refrigerators market?</label>
-            <div className="ans flex space-x-4 justify-center">none at all |
+            <label className="que block font-medium mt-7">How committed do you think <span className="frostbyte">FrostByte</span> is to success in the U.S. refrigerators market?</label>
+            <div className="opt flex space-x-4 justify-center">
+            <span style={{ marginRight: '0.5rem' }}>None at all</span>
                 {[1, 2, 3, 4, 5].map((value) => (
                 <label key={`Ex3commitmentUS-${value}`} className='p-1'>
                     <input
@@ -258,12 +264,14 @@ const TestForm = () => {
                     />
                     {/* {value} */}
                 </label>
-                ))}| a great deal
+                ))}
+                <span style={{ marginLeft: '1.5rem' }}>A great deal</span>
             </div>
 
             {/* Commitment to the product category */}
-            <label className="que block font-medium mt-7">How committed do you think Frostbyte is to the product category?</label>
-            <div className="ans flex space-x-4 justify-center">none at all |
+            <label className="que block font-medium mt-7">How committed do you think <span className="frostbyte">FrostByte</span> is to the product category?</label>
+            <div className="opt flex space-x-4 justify-center">
+            <span style={{ marginRight: '0.5rem' }}>None at all</span>
                 {[1, 2, 3, 4, 5].map((value) => (
                 <label key={`Ex4commitmentCategory-${value}`} className='p-1'>
                     <input
@@ -275,12 +283,14 @@ const TestForm = () => {
                     />
                     {/* {value} */}
                 </label>
-                ))}| a great deal
+                ))}
+                <span style={{ marginLeft: '1.5rem' }}>A great deal</span>
             </div>
 
             {/* Investment in the product category */}
-            <label className="que block font-medium mt-7">How invested do you think Frostbyte is in the product category?</label>
-            <div className="ans flex space-x-4 justify-center">none at all |
+            <label className="que block font-medium mt-7">How invested do you think <span className="frostbyte">FrostByte</span> is in the product category?</label>
+            <div className="opt flex space-x-4 justify-center">
+            <span style={{ marginRight: '0.5rem' }}>None at all</span>
                 {[1, 2, 3, 4, 5].map((value) => (
                 <label key={`Ex5investmentCategory-${value}`} className='p-1'>
                     <input
@@ -292,12 +302,14 @@ const TestForm = () => {
                     />
                     {/* {value} */}
                 </label>
-                ))}| a great deal
+                ))}
+                <span style={{ marginLeft: '1.5rem' }}>A great deal</span>
             </div>
 
             {/* AC */}
-            <label className="que block font-medium mt-7">Research shows that over 50% of people don't read questions carefully. If you are reading this question carefully, please select the fourth option from the left.</label>
-            <div className="ans flex space-x-4 justify-center">never or seldom |
+            <label className="que block font-medium mt-7">If you are reading this question carefully, please select the fourth option from the left.</label>
+            <div className="opt flex space-x-4 justify-center">
+            <span style={{ marginRight: '0.5rem' }}>Never or seldom</span>
                 {[1, 2, 3, 4, 5].map((value) => (
                 <label key={`ACreadCarefully-${value}`} className='p-1'>
                     <input
@@ -309,19 +321,21 @@ const TestForm = () => {
                     />
                     {/* {value} */}
                 </label>
-                ))}| always
+                ))}
+                <span style={{ marginLeft: '1.5rem' }}>Always</span>
             </div>
             </div>
           </div>
         );
       case 2:
         return (
-          <div>
+          <div className="testform flex flex-col justify-center min-h-screen p-4" style={{ marginLeft: '4rem', marginRight: '4rem' }}>
             <h2 className="que text-xl mt-9">This set of questions asks you about specific events in your life. Please indicate your answer to each question by selecting the appropriate option.</h2>
             <div className=''>
             {/* RFQ1 */}
             <label className="que block font-medium mt-7">Compared to most people, are you typically unable to get what you want out of life?</label>
-            <div className="ans flex space-x-4 justify-center">never or seldom |
+            <div className="opt flex space-x-4 justify-center">
+            <span style={{ marginRight: '0.5rem' }}>Never or seldom</span>
                 {[1, 2, 3, 4, 5].map((value) => (
                 <label key={`RFQ1unableToGetWhatYouWant-${value}`} className='p-1'>
                     <input
@@ -333,12 +347,14 @@ const TestForm = () => {
                     />
                     {/* {value} */}
                 </label>
-                ))}| very often
+                ))}
+                <span style={{ marginLeft: '1.5rem' }}>Very often</span>
             </div>
 
             {/* RFQ2 */}
             <label className="que block font-medium mt-7">Growing up, would you ever “cross the line” by doing things that your parents would not tolerate?</label>
-            <div className="ans flex space-x-4 justify-center">never or seldom |
+            <div className="opt flex space-x-4 justify-center">
+            <span style={{ marginRight: '0.5rem' }}>Never or seldom</span>
                 {[1, 2, 3, 4, 5].map((value) => (
                 <label key={`RFQ2crossTheLine-${value}`} className='p-1'>
                     <input
@@ -350,12 +366,14 @@ const TestForm = () => {
                     />
                     {/* {value} */}
                 </label>
-                ))}| very often
+                ))}
+                <span style={{ marginLeft: '1.5rem' }}>Very often</span>
             </div>
 
             {/* RFQ3 */}
             <label className="que block font-medium mt-7">How often have you accomplished things that got you "psyched" to work even harder?</label>
-            <div className="ans flex space-x-4 justify-center">never or seldom |
+            <div className="opt flex space-x-4 justify-center">
+            <span style={{ marginRight: '0.5rem' }}>Never or seldom</span>
                 {[1, 2, 3, 4, 5].map((value) => (
                 <label key={`RFQ3accomplishmentsPsyched-${value}`} className='p-1'>
                     <input
@@ -367,12 +385,14 @@ const TestForm = () => {
                     />
                     {/* {value} */}
                 </label>
-                ))}| many times
+                ))}
+                <span style={{ marginLeft: '1.5rem' }}>Many times</span>
             </div>
 
             {/* RFQ4 */}
             <label className="que block font-medium mt-7">Did you get on your parents’ nerves often when you were growing up?</label>
-            <div className="ans flex space-x-4 justify-center">never or seldom |
+            <div className="opt flex space-x-4 justify-center">
+            <span style={{ marginRight: '0.5rem' }}>Never or seldom</span>
                 {[1, 2, 3, 4, 5].map((value) => (
                 <label key={`RFQ4getOnParentsNerves-${value}`} className='p-1'>
                     <input
@@ -384,12 +404,14 @@ const TestForm = () => {
                     />
                     {/* {value} */}
                 </label>
-                ))}| very often
+                ))}
+                <span style={{ marginLeft: '1.5rem' }}>Very often</span>
             </div>
 
             {/* RFQ5 */}
             <label className="que block font-medium mt-7">How often did you obey rules and regulations that were established by your parents?</label>
-            <div className="ans flex space-x-4 justify-center">never or seldom |
+            <div className="opt flex space-x-4 justify-center">
+            <span style={{ marginRight: '0.5rem' }}>Never or seldom</span>
                 {[1, 2, 3, 4, 5].map((value) => (
                 <label key={`RFQ5obeyRules-${value}`} className='p-1'>
                     <input
@@ -401,12 +423,14 @@ const TestForm = () => {
                     />
                     {/* {value} */}
                 </label>
-                ))}| always
+                ))}
+                <span style={{ marginLeft: '1.5rem' }}>Always</span>
             </div>
 
             {/* RFQ6 */}
             <label className="que block font-medium mt-7">Growing up, did you ever act in ways that your parents thought were objectionable?</label>
-            <div className="ans flex space-x-4 justify-center">never or seldom |
+            <div className="opt flex space-x-4 justify-center">
+            <span style={{ marginRight: '0.5rem' }}>Never or seldom</span>
                 {[1, 2, 3, 4, 5].map((value) => (
                 <label key={`RFQ6actObjectionable-${value}`} className='p-1'>
                     <input
@@ -418,12 +442,14 @@ const TestForm = () => {
                     />
                     {/* {value} */}
                 </label>
-                ))}| very often
+                ))}
+                <span style={{ marginLeft: '1.5rem' }}>Very often</span>
             </div>
 
             {/* RFQ7 */}
             <label className="que block font-medium mt-7">Do you often do well at different things that you try?</label>
-            <div className="ans flex space-x-4 justify-center">never or seldom |
+            <div className="opt flex space-x-4 justify-center">
+            <span style={{ marginRight: '0.5rem' }}>Never or seldom</span>
                 {[1, 2, 3, 4, 5].map((value) => (
                 <label key={`RFQ7doWellAtThings-${value}`} className='p-1'>
                     <input
@@ -435,12 +461,14 @@ const TestForm = () => {
                     />
                     {/* {value} */}
                 </label>
-                ))}| very often
+                ))}
+                <span style={{ marginLeft: '1.5rem' }}>Very often</span>
             </div>
 
             {/* RFQ8 */}
             <label className="que block font-medium mt-7">Not being careful enough has gotten me into trouble at times.</label>
-            <div className="ans flex space-x-4 justify-center">never or seldom |
+            <div className="opt flex space-x-4 justify-center">
+            <span style={{ marginRight: '0.5rem' }}>Never or seldom</span>
                 {[1, 2, 3, 4, 5].map((value) => (
                 <label key={`RFQ8notCarefulTrouble-${value}`} className='p-1'>
                     <input
@@ -452,12 +480,14 @@ const TestForm = () => {
                     />
                     {/* {value} */}
                 </label>
-                ))}| very often
+                ))}
+                <span style={{ marginLeft: '1.5rem' }}>Very often</span>
             </div>
 
             {/* RFQ9 */}
             <label className="que block font-medium mt-7">When it comes to achieving things that are important to me, I find that I don't perform as well as I ideally would like to do.</label>
-            <div className="ans flex space-x-4 justify-center">never true |
+            <div className="opt flex space-x-4 justify-center">
+            <span style={{ marginRight: '0.5rem' }}>Never true</span>
                 {[1, 2, 3, 4, 5].map((value) => (
                 <label key={`RFQ9underperformingGoals-${value}`} className='p-1'>
                     <input
@@ -469,12 +499,14 @@ const TestForm = () => {
                     />
                     {/* {value} */}
                 </label>
-                ))}| very often true
+                ))}
+                <span style={{ marginLeft: '1.5rem' }}>Very often true</span>
             </div>
 
             {/* RFQ10 */}
             <label className="que block font-medium mt-7">I feel like I have made progress toward being successful in my life.</label>
-            <div className="ans flex space-x-4 justify-center">certainly false |
+            <div className="opt flex space-x-4 justify-center">
+            <span style={{ marginRight: '0.5rem' }}>Certainly false</span>
                 {[1, 2, 3, 4, 5].map((value) => (
                 <label key={`RFQ10progressTowardSuccess-${value}`} className='p-1'>
                     <input
@@ -486,12 +518,14 @@ const TestForm = () => {
                     />
                     {/* {value} */}
                 </label>
-                ))}| certainly true
+                ))}
+                <span style={{ marginLeft: '1.5rem' }}>Certainly true</span>
             </div>
 
             {/* RFQ11 */}
             <label className="que block font-medium mt-7">I have found very few hobbies or activities in my life that capture my interest or motivate me to put effort into them.</label>
-            <div className="ans flex space-x-4 justify-center">certainly false |
+            <div className="opt flex space-x-4 justify-center">
+            <span style={{ marginRight: '0.5rem' }}>Certainly false</span>
                 {[1, 2, 3, 4, 5].map((value) => (
                 <label key={`RFQ11fewHobbiesInterest-${value}`} className='p-1'>
                     <input
@@ -503,19 +537,21 @@ const TestForm = () => {
                     />
                     {/* {value} */}
                 </label>
-                ))}| certainly true
+                ))}
+                <span style={{ marginLeft: '1.5rem' }}>Certainly true</span>
             </div>
             </div>
           </div>
         );
       case 3:
         return (
-          <div>
+          <div className="testform flex flex-col justify-center min-h-screen p-4" style={{ marginLeft: '4rem', marginRight: '4rem' }}>
             <h2 className="que text-xl mt-9">Please respond to the following statements by selecting the appropriate option.</h2>
             <div className=''>
             {/* MS1 */}
             <label className="que block font-medium mt-7">When I am in the car listening to the radio, I often check other stations to see if something better is playing, even if I’m relatively satisfied with what I’m listening to.</label>
-            <div className="ans flex space-x-4 justify-center">Strongly disagree |
+            <div className="opt flex space-x-4 justify-center">
+            <span style={{ marginRight: '0.5rem' }}>Strongly disagree</span>
                 {[1, 2, 3, 4, 5, 6, 7].map((value) => (
                 <label key={`MS1carRadioCheckStations-${value}`} className='p-1'>
                     <input
@@ -527,12 +563,14 @@ const TestForm = () => {
                     />
                     {/* {value} */}
                 </label>
-                ))}| Strongly agree
+                ))}
+                <span style={{ marginLeft: '1.5rem' }}>Strongly agree</span>
             </div>
 
             {/* MS2 */}
             <label className="que block font-medium mt-7">No matter how satisfied I am with my job, it’s only right for me to be on the lookout for better opportunities.</label>
-            <div className="ans flex space-x-4 justify-center">Strongly disagree |
+            <div className="opt flex space-x-4 justify-center">
+            <span style={{ marginRight: '0.5rem' }}>Strongly disagree</span>
                 {[1, 2, 3, 4, 5, 6, 7].map((value) => (
                 <label key={`MS2lookoutBetterJobs-${value}`} className='p-1'>
                     <input
@@ -544,12 +582,14 @@ const TestForm = () => {
                     />
                     {/* {value} */}
                 </label>
-                ))}| Strongly agree
+                ))}
+                <span style={{ marginLeft: '1.5rem' }}>Strongly agree</span>
             </div>
 
             {/* MS3 */}
             <label className="que block font-medium mt-7">I often find it difficult to shop for a gift for a friend.</label>
-            <div className="ans flex space-x-4 justify-center">Strongly disagree |
+            <div className="opt flex space-x-4 justify-center">
+            <span style={{ marginRight: '0.5rem' }}>Strongly disagree</span>
                 {[1, 2, 3, 4, 5, 6, 7].map((value) => (
                 <label key={`MS3shopForGift-${value}`} className='p-1'>
                     <input
@@ -561,12 +601,14 @@ const TestForm = () => {
                     />
                     {/* {value} */}
                 </label>
-                ))}| Strongly agree
+                ))}
+                <span style={{ marginLeft: '1.5rem' }}>Strongly agree</span>
             </div>
 
             {/* MS4 */}
             <label className="que block font-medium mt-7">Renting videos is really difficult. I’m always struggling to pick the best one.</label>
-            <div className="ans flex space-x-4 justify-center">Strongly disagree |
+            <div className="opt flex space-x-4 justify-center">
+            <span style={{ marginRight: '0.5rem' }}>Strongly disagree</span>
                 {[1, 2, 3, 4, 5, 6, 7].map((value) => (
                 <label key={`MS4rentingVideosDifficult-${value}`} className='p-1'>
                     <input
@@ -578,12 +620,14 @@ const TestForm = () => {
                     />
                     {/* {value} */}
                 </label>
-                ))}| Strongly agree
+                ))}
+                <span style={{ marginLeft: '1.5rem' }}>Strongly agree</span>
             </div>
 
             {/* MS5 */}
             <label className="que block font-medium mt-7">No matter what I do, I have the highest standards for myself.</label>
-            <div className="ans flex space-x-4 justify-center">Strongly disagree |
+            <div className="opt flex space-x-4 justify-center">
+            <span style={{ marginRight: '0.5rem' }}>Strongly disagree</span>
                 {[1, 2, 3, 4, 5, 6, 7].map((value) => (
                 <label key={`MS5highestStandards-${value}`} className='p-1'>
                     <input
@@ -595,12 +639,14 @@ const TestForm = () => {
                     />
                     {/* {value} */}
                 </label>
-                ))}| Strongly agree
+                ))}
+                <span style={{ marginLeft: '1.5rem' }}>Strongly agree</span>
             </div>
 
             {/* MS6 */}
             <label className="que block font-medium mt-7">I never settle for second best.</label>
-            <div className="ans flex space-x-4 justify-center">Strongly disagree |
+            <div className="opt flex space-x-4 justify-center">
+            <span style={{ marginRight: '0.5rem' }}>Strongly disagree</span>
                 {[1, 2, 3, 4, 5, 6, 7].map((value) => (
                 <label key={`MS6neverSettleSecondBest-${value}`} className='p-1'>
                     <input
@@ -612,36 +658,56 @@ const TestForm = () => {
                     />
                     {/* {value} */}
                 </label>
-                ))}| Strongly agree
+                ))}
+                <span style={{ marginLeft: '1.5rem' }}>Strongly agree</span>
             </div>
             </div>
           </div>
         );
       case 4:
         return(
-            <div>
+          <div className="testform flex flex-col justify-center min-h-screen p-4" style={{ marginLeft: '4rem', marginRight: '4rem' }}>
             {/*Demographic Questions*/}
-            <h2 className="que text-xl mt-9">Please respond to these demographic questions by selecting the appropriate option.</h2>
 
             {/* MC1: Which of the following brands you find most innovative? */}
             <label className="que block font-medium mt-7">Which of the following brands you find most innovative?</label>
             <div className="ans flex flex-col p-1">
-                {['FrostByte', 'CoolNest', 'ChillCore', 'PolarPeak'].map((option) => (
-                <label key={`MC1brandInnovative-${option}`} className='p-1'>
-                    <input
-                    type="radio"
-                    name="MC1brandInnovative"
-                    value={option}
-                    checked={surveyData.demographics.MC1brandInnovative === option}
-                    onChange={(e) => handleInputChange('demographics', 'MC1brandInnovative', e.target.value)}
-                    />
-                    {option}
-                </label>
-                ))}
-            </div>
+  {['FrostByte', 'CoolNest', 'ChillCore', 'PolarPeak'].map((option) => {
+    let className = '';
+    switch (option) {
+      case 'FrostByte':
+        className = 'frostbyte';
+        break;
+      case 'CoolNest':
+        className = 'coolnest';
+        break;
+      case 'ChillCore':
+        className = 'chillcore';
+        break;
+      case 'PolarPeak':
+        className = 'polarpeak';
+        break;
+      default:
+        break;
+    }
+    return (
+      <label key={`MC1brandInnovative-${option}`} className='p-1'>
+        <input
+          type="radio"
+          name="MC1brandInnovative"
+          value={option}
+          checked={surveyData.demographics.MC1brandInnovative === option}
+          onChange={(e) => handleInputChange('demographics', 'MC1brandInnovative', e.target.value)}
+          className="radio-margin"
+        />
+        <span className={className}>{option}</span>
+      </label>
+    );
+  })}
+</div>
 
             {/* MC2: When did you see the information regarding FrostByte brand? */}
-            <label className="que block font-medium mt-7">When did you see the information regarding FrostByte brand?</label>
+            <label className="que block font-medium mt-7">When did you see the information regarding <span className="frostbyte">FrostByte</span> brand?</label>
             <div className="ans flex flex-col p-1">
                 {['Before shortlisting the fridges for comparison', 'After shortlisting the fridges for comparison'].map((option) => (
                 <label key={`MC2frostByteInfoTime-${option}`} className='p-1'>
@@ -651,6 +717,7 @@ const TestForm = () => {
                     value={option}
                     checked={surveyData.demographics.MC2frostByteInfoTime === option}
                     onChange={(e) => handleInputChange('demographics', 'MC2frostByteInfoTime', e.target.value)}
+                    className="radio-margin"
                     />
                     {option}
                 </label>
@@ -670,6 +737,7 @@ const TestForm = () => {
                     value={option}
                     checked={surveyData.demographics.AC2readCarefully === option}
                     onChange={(e) => handleInputChange('demographics', 'AC2readCarefully', e.target.value)}
+                    className="radio-margin"
                     />
                     {option}
                 </label>
@@ -681,6 +749,7 @@ const TestForm = () => {
                     value="Other"
                     checked={surveyData.demographics.AC2readCarefully === 'Other'}
                     onChange={(e) => handleInputChange('demographics', 'AC2readCarefully', e.target.value)}
+                    className="radio-margin"
                 />
                 Other (please specify)
                 {surveyData.demographics.AC2readCarefully === 'Other' && (
@@ -706,6 +775,7 @@ const TestForm = () => {
                     value={option}
                     checked={surveyData.demographics.gender === option}
                     onChange={(e) => handleInputChange('demographics', 'gender', e.target.value)}
+                    className="radio-margin"
                     />
                     {option}
                 </label>
@@ -742,6 +812,7 @@ const TestForm = () => {
                     value={option}
                     checked={surveyData.demographics.fridgePurchase === option}
                     onChange={(e) => handleInputChange('demographics', 'fridgePurchase', e.target.value)}
+                    className="radio-margin"
                     />
                     {option}
                 </label>

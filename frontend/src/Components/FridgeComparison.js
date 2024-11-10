@@ -177,7 +177,7 @@ const FridgeComparison = () => {
   // Prepare the attributes for comparison
   const attributes = [
     { label: '', key: 'fridgeImage', format: (value) => <img src={value} alt="Fridge" className="max-h-40 mx-auto" /> },
-    { label: 'Price', key: 'price' },
+    { label: 'Price', key: 'price', format: (value) => `$${value}` },
     { label: 'Dimensions (H x W x D)', key: 'dimensions', format: (value) => `${value.height} x ${value.width} x ${value.depth} in` },
     { label: 'Cooling Space', key: 'coolingSpace', suffix: ' Cu. Ft.' },
     { label: 'Freezer Space', key: 'freezerSpace', suffix: ' Cu. Ft.' },
