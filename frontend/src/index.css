@@ -4,7 +4,7 @@
 
 /* Global text color */
 body {
-    color: #808080; /* Slightly less black */
+    color: #808080; /* Medium gray text color */
     font-weight: 300; /* Light font weight for better readability */
   }
 
@@ -59,6 +59,7 @@ body {
     color: #5e17eb;
 }
 
+/* Custom class for gap between radio button and text for page4 questions */
 .radio-margin {
   margin-right: 10px;
 }
