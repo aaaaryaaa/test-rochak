@@ -207,9 +207,9 @@ const FridgeComparison = () => {
           <tbody>
             {attributes.map((attribute, index) => (
               <tr key={index} className="hover:bg-gray-100">
-                <td className="py-2 px-4 border-b font-semibold">{attribute.label}</td>
+                <td className="py-2 px-4 border-b font-semibold text-[black]">{attribute.label}</td>
                 {fridgesToCompare.map((fridge, idx) => (
-                  <td key={idx} className="py-2 px-4 border-b text-center">
+                  <td key={idx} className="py-2 px-4 border-b text-center font-semibold text-[black]">
                     {attribute.format
                       ? attribute.format(fridge[attribute.key])
                       : `${fridge[attribute.key] || ''}${attribute.suffix || ''}`}

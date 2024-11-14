@@ -11,8 +11,7 @@ const TestForm = () => {
       Ex1expertise: null,
       Ex2knowledge: null,
       Ex3commitmentUS: null,
-      Ex4commitmentCategory: null,
-      Ex5investmentCategory: null,
+      //removed Ex4 and Ex5
     },
     specificEvents: {
       RFQ1unableToGetWhatYouWant: null,
@@ -45,11 +44,16 @@ const TestForm = () => {
       AC2readCarefully: '',        // Added for AC2
       AC2otherReadCarefully: ''
     },
+    commentOnStudy: ''
   });
 
+  //removed fields from pageA
+  // Ex4commitmentCategory: null,
+  // Ex5investmentCategory: null,
+
   //removed fields from surveyform
-//   ethnicBackground: '',
-//   englishProficiency: null,
+  // ethnicBackground: '',
+  // englishProficiency: null,
 
   // Handling input changes for each section
   const handleInputChange = (section, field, value) => {
@@ -59,6 +63,14 @@ const TestForm = () => {
         ...prevData[section],
         [field]: value,
       },
+    }));
+  };
+
+  const handleCommentChange = (e) => {
+    const { value } = e.target;
+    setSurveyData((prevData) => ({
+      ...prevData,
+      commentOnStudy: value
     }));
   };
 
@@ -155,7 +167,7 @@ const TestForm = () => {
   };
 
   // Total number of pages
-  const totalPages = 4;
+  const totalPages = 5;
 
   // Handle Next and Previous page navigation
   const goToNextPage = () => {
@@ -168,10 +180,10 @@ const TestForm = () => {
           return;//flag=false; // Field is empty
         }
       }
-      if(surveyData.specificEvents.ACreadCarefully === null){
-        alert("Please fill all details!");
-        return;
-      }
+      // if(surveyData.specificEvents.ACreadCarefully === null){
+      //   alert("Please fill all details!");
+      //   return;
+      // }
     }
     if(currentPage===2){
       const specificEventsFields = Object.keys(surveyData.specificEvents);
@@ -190,10 +202,28 @@ const TestForm = () => {
           return;//flag=false; // Field is empty
         }
       }
+      if(surveyData.demographics.MC1brandInnovative === ''){
+        alert("Please fill all details!");
+        return;
+      }
+    }
+    if(currentPage===4){
+      if(!isAgeValid(surveyData.demographics.age)){
+          alert('Please ensure age is between 18 and 100');
+          return;
+      }
+      const demographicFields = ['age', 'gender', 'fridgePurchase', 'MC1brandInnovative', 'MC2frostByteInfoTime', 'AC2readCarefully'];
+      for (let field of demographicFields) {
+        if (!surveyData.demographics[field]) {
+          alert('Please answer all the questions.');
+          return;//flag=false; // Field is empty
+        }
+      }
     }
     if (currentPage < totalPages && flag) {
       setCurrentPage(currentPage + 1);
     }
+    window.scrollTo(0, 0); // to scroll top
   };
 
   const goToPreviousPage = () => {
@@ -269,7 +299,7 @@ const TestForm = () => {
             </div>
 
             {/* Commitment to the product category */}
-            <label className="que block font-medium mt-14 mb-8">TO BE REMOVED1</label>
+            {/* <label className="que block font-medium mt-14 mb-8">TO BE REMOVED1</label>
             <div className="opt flex space-x-4 justify-center">
             <span style={{ marginRight: '0.5rem' }}>None at all</span>
                 {[1, 2, 3, 4, 5].map((value) => (
@@ -281,14 +311,13 @@ const TestForm = () => {
                     checked={surveyData.pageA.Ex4commitmentCategory === value}
                     onChange={(e) => handleInputChange('pageA', 'Ex4commitmentCategory', parseInt(e.target.value))}
                     />
-                    {/* {value} */}
                 </label>
                 ))}
                 <span style={{ marginLeft: '1.5rem' }}>A great deal</span>
-            </div>
+            </div> */}
 
             {/* Investment in the product category */}
-            <label className="que block font-medium mt-14 mb-8">TO BE REMOVED2</label>
+            {/* <label className="que block font-medium mt-14 mb-8">TO BE REMOVED2</label>
             <div className="opt flex space-x-4 justify-center">
             <span style={{ marginRight: '0.5rem' }}>None at all</span>
                 {[1, 2, 3, 4, 5].map((value) => (
@@ -300,30 +329,12 @@ const TestForm = () => {
                     checked={surveyData.pageA.Ex5investmentCategory === value}
                     onChange={(e) => handleInputChange('pageA', 'Ex5investmentCategory', parseInt(e.target.value))}
                     />
-                    {/* {value} */}
                 </label>
                 ))}
                 <span style={{ marginLeft: '1.5rem' }}>A great deal</span>
-            </div>
+            </div> */}
 
-            {/* AC */}
-            <label className="que block font-medium mt-14 mb-8">If you are reading this question carefully, please select the fourth option from the left.</label>
-            <div className="opt flex space-x-4 justify-center">
-            <span style={{ marginRight: '0.5rem' }}>None at all</span>
-                {[1, 2, 3, 4, 5].map((value) => (
-                <label key={`ACreadCarefully-${value}`} className='p-1'>
-                    <input
-                    type="radio"
-                    name="ACreadCarefully"
-                    value={value}
-                    checked={surveyData.specificEvents.ACreadCarefully === value}
-                    onChange={(e) => handleInputChange('specificEvents', 'ACreadCarefully', parseInt(e.target.value))}
-                    />
-                    {/* {value} */}
-                </label>
-                ))}
-                <span style={{ marginLeft: '1.5rem' }}>A great deal</span>
-            </div>
+            
             </div>
           </div>
         );
@@ -425,6 +436,25 @@ const TestForm = () => {
                 </label>
                 ))}
                 <span style={{ marginLeft: '1.5rem' }}>Always</span>
+            </div>
+
+            {/* AC */}
+            <label className="que block font-medium mt-14 mb-8">If you are reading this question carefully, please select the fourth option from the left.</label>
+            <div className="opt flex space-x-4 justify-center">
+            <span style={{ marginRight: '0.5rem' }}>None at all</span>
+                {[1, 2, 3, 4, 5].map((value) => (
+                <label key={`ACreadCarefully-${value}`} className='p-1'>
+                    <input
+                    type="radio"
+                    name="ACreadCarefully"
+                    value={value}
+                    checked={surveyData.specificEvents.ACreadCarefully === value}
+                    onChange={(e) => handleInputChange('specificEvents', 'ACreadCarefully', parseInt(e.target.value))}
+                    />
+                    {/* {value} */}
+                </label>
+                ))}
+                <span style={{ marginLeft: '1.5rem' }}>A great deal</span>
             </div>
 
             {/* RFQ6 */}
@@ -661,6 +691,44 @@ const TestForm = () => {
                 ))}
                 <span style={{ marginLeft: '1.5rem' }}>Strongly agree</span>
             </div>
+
+            {/* MC1: Which of the following brands you find most innovative? */}
+            <label className="que block font-medium mt-7 mb-8">Which of the following brands you find most innovative?</label>
+            <div className="ans flex flex-col p-1">
+              {['FrostByte', 'CoolNest', 'ChillCore', 'PolarPeak'].map((option) => {
+                let className = '';
+                switch (option) {
+                  case 'FrostByte':
+                    className = 'frostbyte';
+                    break;
+                  case 'CoolNest':
+                    className = 'coolnest';
+                    break;
+                  case 'ChillCore':
+                    className = 'chillcore';
+                    break;
+                  case 'PolarPeak':
+                    className = 'polarpeak';
+                    break;
+                  default:
+                    break;
+                }
+                return (
+                  <label key={`MC1brandInnovative-${option}`} className='p-1'>
+                    <input
+                      type="radio"
+                      name="MC1brandInnovative"
+                      value={option}
+                      checked={surveyData.demographics.MC1brandInnovative === option}
+                      onChange={(e) => handleInputChange('demographics', 'MC1brandInnovative', e.target.value)}
+                      className="radio-margin"
+                    />
+                    <span className={className}>{option}</span>
+                  </label>
+                );
+              })}
+            </div>
+
             </div>
           </div>
         );
@@ -669,47 +737,12 @@ const TestForm = () => {
           <div className="testform flex flex-col justify-center min-h-screen p-4 leading-relaxed" style={{ marginLeft: '4rem', marginRight: '4rem' }}>
             {/*Demographic Questions*/}
 
-            {/* MC1: Which of the following brands you find most innovative? */}
-            <label className="que block font-medium mt-7 mb-8">Which of the following brands you find most innovative?</label>
-            <div className="ans flex flex-col p-1">
-  {['FrostByte', 'CoolNest', 'ChillCore', 'PolarPeak'].map((option) => {
-    let className = '';
-    switch (option) {
-      case 'FrostByte':
-        className = 'frostbyte';
-        break;
-      case 'CoolNest':
-        className = 'coolnest';
-        break;
-      case 'ChillCore':
-        className = 'chillcore';
-        break;
-      case 'PolarPeak':
-        className = 'polarpeak';
-        break;
-      default:
-        break;
-    }
-    return (
-      <label key={`MC1brandInnovative-${option}`} className='p-1'>
-        <input
-          type="radio"
-          name="MC1brandInnovative"
-          value={option}
-          checked={surveyData.demographics.MC1brandInnovative === option}
-          onChange={(e) => handleInputChange('demographics', 'MC1brandInnovative', e.target.value)}
-          className="radio-margin"
-        />
-        <span className={className}>{option}</span>
-      </label>
-    );
-  })}
-</div>
+            {/* shifting MC1 to previous page */}
 
             {/* MC2: When did you see the information regarding FrostByte brand? */}
             <label className="que block font-medium mt-14 mb-8">When did you see the information page regarding <span className="frostbyte">FrostByte</span> brand?</label>
             <div className="ans flex flex-col p-1">
-                {['Before shortlisting the fridges for comparison', 'After shortlisting the fridges for comparison'].map((option) => (
+                {['Before shortlisting the fridges for comparison', 'After shortlisting the fridges for comparison', 'I did not see any information page regarding FrostByte brand'].map((option) => (
                 <label key={`MC2frostByteInfoTime-${option}`} className='p-1'>
                     <input
                     type="radio"
@@ -820,6 +853,21 @@ const TestForm = () => {
             </div>
             </div>
         );
+      case 5:
+        return(
+          <div>
+            {/* Comment on Study Textarea */}
+            <label className="que block font-medium mb-3">Do you have any comments on our study? (Optional)</label>
+            <textarea
+              id="commentOnStudy"
+              rows="4"
+              value={surveyData.commentOnStudy}
+              onChange={handleCommentChange}
+              placeholder="Your comments here..."
+              className='bg-gray-100 w-[100%] p-5'
+            ></textarea>
+          </div>
+        );  
       default:
         return <div>Invalid Page</div>;
     }

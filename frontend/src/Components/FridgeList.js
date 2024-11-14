@@ -63,6 +63,9 @@ const FridgeList = () => {
           // If it's already in sessionStorage, retrieve and parse it
           const storedFridges = JSON.parse(sessionStorage.getItem('shuffledFridges')); // Parse it back into an array
           setFridges(storedFridges);
+          const shuffledNameIds = storedFridges.map(fridge => fridge.nameId);
+          // Send the PATCH request to update the user's shuffledFridges field
+          await updateUserShuffledFridges(shuffledNameIds);
         }
   
       } catch (error) {
@@ -204,11 +207,11 @@ const FridgeList = () => {
       <div className="flex">
         <div className="fridge-list w-full">
         {fridges.map((fridge, index) => (
-            <div key={index} className="fridge-item  p-3">
+            <div key={index} className="fridge-item  p-3" onMouseEnter={() => setHoveredFridge(fridge)} onMouseLeave={() => setHoveredFridge(null)}>
               <div className='flex justify-around'>
                 <div>
                   <img src={fridge.fridgeImage} alt="Refrigerator" className="fridge-image" />
-                  <p className="text-[1.1rem] font-medium mt-8">${fridge.price}</p>
+                  <p className="text-[1.1rem] text-black font-medium mt-8">${fridge.price}</p>
                 </div>
                 <div
                   className="fridge-details flex-col gap-4"
@@ -223,12 +226,12 @@ const FridgeList = () => {
                   <div className="fridge-rating">
                     <img src={fridge.reviewImage} alt="Rating" />
                   </div>
-                  <p className='py-5 text-blue-300' 
+                  {/* <p className='py-5 text-blue-300' 
                   onMouseEnter={() => setHoveredFridge(fridge)}
                   onMouseLeave={() => setHoveredFridge(null)}
                   >
                     Hover here for more details
-                  </p>
+                  </p> */}
                 </div>
               </div>
               {/* {hoveredFridge && hoveredFridge.name === fridge.name && (
