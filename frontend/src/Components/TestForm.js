@@ -212,7 +212,7 @@ const TestForm = () => {
             <h2 className="que text-xl mt-9">Please respond to the following questions by selecting the appropriate option.</h2>
         <div className=''>
             {/* Ex1Expertise in product category */}
-            <label className="que block font-medium mt-14 mb-8">How much expertise do you think <span className="frostbyte">FrostByte</span> has in the product category?</label>
+            <label className="que block font-medium mt-14 mb-8">How much expertise do you think <span className="frostbyte">FrostByte</span> has in refrigerators?</label>
             <div className="opt flex space-x-4 justify-center">
               <span style={{ marginRight: '0.5rem' }}>None at all</span>
                 {[1, 2, 3, 4, 5].map((value) => (
@@ -231,7 +231,7 @@ const TestForm = () => {
             </div>
 
             {/* Ex2Knowledge regarding the product category */}
-            <label className="que block font-medium mt-14 mb-8">How much knowledge <span className="frostbyte">FrostByte</span> has regarding the product category?</label>
+            <label className="que block font-medium mt-14 mb-8">How much knowledge do you think <span className="frostbyte">FrostByte</span> has regarding refrigerators?</label>
             <div className="opt flex space-x-4 justify-center">
             <span style={{ marginRight: '0.5rem' }}>None at all</span>
                 {[1, 2, 3, 4, 5].map((value) => (
@@ -250,7 +250,7 @@ const TestForm = () => {
             </div>
 
             {/* Commitment to success in the U.S. refrigerators market */}
-            <label className="que block font-medium mt-14 mb-8">How committed do you think <span className="frostbyte">FrostByte</span> is to success in the U.S. refrigerators market?</label>
+            <label className="que block font-medium mt-14 mb-8">How specialized do you think <span className="frostbyte">FrostByte</span> is in refrigerators?</label>
             <div className="opt flex space-x-4 justify-center">
             <span style={{ marginRight: '0.5rem' }}>None at all</span>
                 {[1, 2, 3, 4, 5].map((value) => (
@@ -269,7 +269,7 @@ const TestForm = () => {
             </div>
 
             {/* Commitment to the product category */}
-            <label className="que block font-medium mt-14 mb-8">How committed do you think <span className="frostbyte">FrostByte</span> is to the product category?</label>
+            <label className="que block font-medium mt-14 mb-8">TO BE REMOVED1</label>
             <div className="opt flex space-x-4 justify-center">
             <span style={{ marginRight: '0.5rem' }}>None at all</span>
                 {[1, 2, 3, 4, 5].map((value) => (
@@ -288,7 +288,7 @@ const TestForm = () => {
             </div>
 
             {/* Investment in the product category */}
-            <label className="que block font-medium mt-14 mb-8">How invested do you think <span className="frostbyte">FrostByte</span> is in the product category?</label>
+            <label className="que block font-medium mt-14 mb-8">TO BE REMOVED2</label>
             <div className="opt flex space-x-4 justify-center">
             <span style={{ marginRight: '0.5rem' }}>None at all</span>
                 {[1, 2, 3, 4, 5].map((value) => (
@@ -707,7 +707,7 @@ const TestForm = () => {
 </div>
 
             {/* MC2: When did you see the information regarding FrostByte brand? */}
-            <label className="que block font-medium mt-14 mb-8">When did you see the information regarding <span className="frostbyte">FrostByte</span> brand?</label>
+            <label className="que block font-medium mt-14 mb-8">When did you see the information page regarding <span className="frostbyte">FrostByte</span> brand?</label>
             <div className="ans flex flex-col p-1">
                 {['Before shortlisting the fridges for comparison', 'After shortlisting the fridges for comparison'].map((option) => (
                 <label key={`MC2frostByteInfoTime-${option}`} className='p-1'>

@@ -277,7 +277,7 @@ const Page2 = () => {
                   <FridgeDetails fridge={hoveredFridge} />
                 </div>
               )} */}
-                <label className="space-x-2 relative left-32 bottom-5">
+                <label className="space-x-2 relative left-24 bottom-5">
                   <input
                     type="checkbox"
                     checked={selectedFridges.some(

@@ -17,10 +17,10 @@ const Consent = () => {
     return (
         <div className="consent flex flex-col justify-center min-h-screen p-4 mx-60">
             <p className="text-2xl mb-4 leading-relaxed">
-                This study helps us understand how people evaluate products. There are no right or wrong answers. It is extremely important that you read the questions carefully and provide your true assessments.
+                This study helps us understand how people evaluate products. <strong> There are no right or wrong answers</strong>. It is extremely important that you read the questions carefully and provide your true assessments.
             </p>
             <p className="text-2xl mb-4 leading-relaxed">
-                Your responses are anonymous, and the data will be used for academic purposes only. Thank you for your time and support. Please indicate your consent by clicking on the appropriate button below.
+                Your <strong>responses are anonymous</strong>, and the data will be used for academic purposes only. Thank you for your time and support. Please indicate your consent by clicking on the appropriate button below.
             </p>
             {/* <div className="flex flex-col mb-4">
                 <label className="flex items-center">

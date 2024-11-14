@@ -30,6 +30,11 @@ body {
     font-style: italic;
 }
 
+/* Ensure strong tags within .consent are bold */
+.consent strong {
+    font-weight: bold;
+}
+
 /* Specific styles for the four words */
 .frostbyte {
     font-family: 'Barlow', sans-serif;
@@ -63,3 +68,9 @@ body {
 .radio-margin {
   margin-right: 10px;
 }
+
+input[type="radio"] {
+    width: 1.2rem;
+    height: 1.2rem;
+    accent-color: #007AC0;
+  }
