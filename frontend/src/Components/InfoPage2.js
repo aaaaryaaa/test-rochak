@@ -41,6 +41,22 @@ const InfoPage2 = () => {
         }
       }, []);
 
+      const [timeLeft, setTimeLeft] = useState(10); // Initialize timer with 10 seconds
+      const [isButtonVisible, setIsButtonVisible] = useState(false); // Track button visibility
+  
+      // Timer effect
+      useEffect(() => {
+          if (timeLeft > 0) {
+              const timer = setTimeout(() => {
+                  setTimeLeft(timeLeft - 1); // Decrease time left by 1 every second
+              }, 1000);
+  
+              return () => clearTimeout(timer); // Clear timeout if component unmounts
+          } else {
+              setIsButtonVisible(true); // Show button after 10 seconds
+          }
+      }, [timeLeft]);
+  
     const handleRedirect = () => {
         setLoading(true); // Set loading to true when button is clicked
 
@@ -85,12 +101,12 @@ const InfoPage2 = () => {
             </p>
             <div className="flex justify-end">  {/* Ensures right alignment */}
             <button
-                onClick={handleRedirect} disabled={loading}
-                className="flex items-center justify-center px-5 py-2 text-white rounded-lg"
-                style={{ backgroundColor: '#007AC0' }} 
+                    onClick={handleRedirect}
+                    className={`flex items-center justify-center px-5 py-2 text-white rounded-lg transition-opacity duration-300 ${isButtonVisible ? 'opacity-100' : 'opacity-0'}`}
+                    style={{ backgroundColor: '#007AC0', pointerEvents: isButtonVisible ? 'auto' : 'none' }} // Apply styling and visibility control
                 >
                     →
-            </button>
+                </button>
             </div>
         </div>
     );
