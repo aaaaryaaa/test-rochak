@@ -22,6 +22,9 @@ const Consent = () => {
             <p className="text-2xl mb-4 leading-relaxed">
                 Your <strong>responses are anonymous</strong>, and the data will be used for academic purposes only. Thank you for your time and support. Please indicate your consent by clicking on the appropriate button below.
             </p>
+            <p className="text-2xl mb-4 leading-relaxed">
+            This study should only be <strong>done on DESKTOP</strong>. You will <strong>NOT BE PAID</strong> participation fee if you do it on <strong>MOBILE or TABLET</strong>.
+            </p>
             {/* <div className="flex flex-col mb-4">
                 <label className="flex items-center">
                     <input

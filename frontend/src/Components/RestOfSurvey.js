@@ -56,7 +56,7 @@ export default function RestOfSurvey() {
         <p className="text-2xl mb-4">
         Thank you for taking part in this study. Please click the button below to be redirected back to Prolific and register your submission.
             </p>
-        <a className='px-4 py-2 bg-blue-500 text-white rounded text-center' href='https://app.prolific.com/submissions/complete?cc=C1F8S210'>Submit</a>
+        <a className='px-4 py-2 bg-blue-500 text-white rounded text-center' href='https://app.prolific.com/submissions/complete?cc=C9GGZUQB'>Submit</a>
         {/* {time && (<div>Time taken: {time}</div>)} */}
     </div>
   )

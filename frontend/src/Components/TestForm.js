@@ -863,7 +863,7 @@ const TestForm = () => {
         return(
           <div>
             {/* Comment on Study Textarea */}
-            <label className="que block font-medium mb-3">Do you have any comments on our study? (Optional)</label>
+            <label className="que block font-medium mb-3">Do you have any comments on our study? You can also tell about any issues you faced during the study. (Optional)</label>
             <textarea
               id="commentOnStudy"
               rows="4"
