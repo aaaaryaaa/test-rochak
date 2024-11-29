@@ -1,12 +1,14 @@
 // components/Page1.js
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import BaseUrl from '../BaseUrl';
 import '../index.css'; // Ensure the CSS file is imported
 
 const Page1 = () => {
     const navigate = useNavigate();
     const [timeLeft, setTimeLeft] = useState(10); // Initialize timer with 10 seconds
     const [isButtonVisible, setIsButtonVisible] = useState(false); // Track button visibility
+    const prolificId = localStorage.getItem('prolificId'); // Retrieve prolificId from localStorage
 
     // Timer effect
     useEffect(() => {
@@ -21,7 +23,30 @@ const Page1 = () => {
         }
     }, [timeLeft]);
 
+    async function addStartConditionClick(prolificId) {
+        const timestamp = new Date().toISOString(); // Get the current timestamp in ISO format
+        try {
+          const response = await fetch(`${BaseUrl}/api/users/${prolificId}/startcondition-click`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ timestamp }), // Send the timestamp in the request body
+          });
+      
+          if (!response.ok) {
+            throw new Error('Failed to add start condition click');
+          }
+      
+          const data = await response.json();
+          // console.log(data.message); // Handle the response as needed
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      }
+
     const handleNext = () => {
+        addStartConditionClick(prolificId);
         navigate('/fridgelist');
     };
 

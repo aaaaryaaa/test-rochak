@@ -106,8 +106,31 @@ const FridgeComparison = () => {
     fetchFridgesToCompare();
   }, [selectedFridges]);
   
+  async function addStartConditionClick(prolificId) {
+    const timestamp = new Date().toISOString(); // Get the current timestamp in ISO format
+    try {
+      const response = await fetch(`${BaseUrl}/api/users/${prolificId}/startcondition-click`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ timestamp }), // Send the timestamp in the request body
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to add start condition click');
+      }
+  
+      const data = await response.json();
+      // console.log(data.message); // Handle the response as needed
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
 
   const handleGoBack = () => {
+    const prolificId = localStorage.getItem('prolificId'); // Retrieve prolificId from localStorage
+    addStartConditionClick(prolificId);
     setClickedBack(true);
     if(user.page === "page1") navigate("/fridgelist");
     if(user.page === "page2") navigate("/page2");

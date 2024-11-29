@@ -56,7 +56,29 @@ const InfoPage2 = () => {
               setIsButtonVisible(true); // Show button after 10 seconds
           }
       }, [timeLeft]);
-  
+    
+      async function addStartConditionClick(prolificId) {
+        const timestamp = new Date().toISOString(); // Get the current timestamp in ISO format
+        try {
+          const response = await fetch(`${BaseUrl}/api/users/${prolificId}/startcondition-click`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ timestamp }), // Send the timestamp in the request body
+          });
+      
+          if (!response.ok) {
+            throw new Error('Failed to add start condition click');
+          }
+      
+          const data = await response.json();
+          // console.log(data.message); // Handle the response as needed
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      }
+    
     const handleRedirect = () => {
         setLoading(true); // Set loading to true when button is clicked
 
@@ -71,6 +93,7 @@ const InfoPage2 = () => {
                     page: targetRoute
                 })
                 .then(() => {
+                    if(targetRoute!=='page1') addStartConditionClick(prolificId);
                     if(user.page==='') navigate(`/${targetRoute}`);
                     else navigate(`/${user.page}`);
                 })

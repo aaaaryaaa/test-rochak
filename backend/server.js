@@ -127,6 +127,10 @@ const userSchema = new mongoose.Schema({
     type: Object,
     default: {},
   },
+  startConditionClick: {
+    type: [Date], // Array of dates for start condition clicks
+    default: [],
+  },
   comparisonClick: {
     type: [Date], // Array of dates for comparison clicks
     default: [],
@@ -334,7 +338,29 @@ app.patch('/api/users/:prolificId/fridgeshuffle', async (req, res) => {
   }
 });
 
+// API route to add a timestamp to startConditionClick
+app.patch('/api/users/:prolificId/startcondition-click', async (req, res) => {
+  const { prolificId } = req.params;
+  const { timestamp } = req.body; // Expecting timestamp in the request body
 
+  try {
+    // Find the user by prolificId
+    const user = await User.findOne({ prolificId });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Add the provided timestamp to the comparisonClick array
+    user.startConditionClick.push(new Date(timestamp));
+
+    await user.save();
+
+    res.status(200).json({ message: 'start condition click timestamp added successfully', user });
+  } catch (error) {
+    console.error('Error updating startConditionClick:', error);
+    res.status(500).json({ message: 'Failed to update startConditionClick' });
+  }
+});
 
 // API route to add a timestamp to comparisonClick
 app.patch('/api/users/:prolificId/comparison-click', async (req, res) => {
