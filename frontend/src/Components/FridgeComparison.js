@@ -213,22 +213,22 @@ const FridgeComparison = () => {
   ];
 
   return (
-    <div className="p-4">
+    <div className="px-4">
       <div className='flex gap-20 p-5'>
-        <button onClick={handleGoBack} className="bg-blue-500 text-[2rem] text-white py-2 px-4 rounded hover:bg-gray-400 mt-4 text-nowrap">
+        <button onClick={handleGoBack} className="bg-blue-500 text-[2rem] text-white py-0 px-4 rounded hover:bg-gray-400 mt-4 text-nowrap">
           🔙 to selection
         </button>
-        <div className='pt-3'>
+        <div className='pt-1'>
           <p className='text-2xl font-semibold leading-relaxed'>You can choose from the options below, or return to the options page (using the button on the left) to adjust the models you are comparing.</p>
         </div>
       </div>
-      <div className="overflow-x-auto mt-6">
+      <div className="overflow-x-auto mt-1">
         <table className="min-w-full bg-white border border-gray-200">
           <thead>
             <tr>
-              <th className="py-2 px-4 border-b"></th>
+              <th className="py-0 px-4 border-b"></th>
               {fridgesToCompare.map((fridge, index) => (
-                <th key={index} className="py-2 px-4 border-b text-center"><img src={fridge.fridgeLogo} alt='fridgeLogo' className='ml-auto mr-auto' /></th>
+                <th key={index} className="py-0 px-4 border-b text-center"><img src={fridge.fridgeLogo} alt='fridgeLogo' className='ml-auto mr-auto' /></th>
               ))}
             </tr>
           </thead>
@@ -251,7 +251,7 @@ const FridgeComparison = () => {
               {fridgesToCompare.map((fridge, idx) => (
                 <td key={idx} className="py-2 px-4 border-b text-center">
                   <button
-                    className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-gray-400 mt-4"
+                    className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-gray-400 mt-1"
                     onClick={() => handleSelection(fridge.name)}
                   >
                     Add to cart
@@ -263,7 +263,7 @@ const FridgeComparison = () => {
         </table>
       </div>
       <button
-        className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-gray-400 mt-4"
+        className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-gray-400 m-1"
         onClick={() => handleSelection('nota')}
       >
         Add none of these
