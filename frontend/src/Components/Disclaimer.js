@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../index.css'; // Ensure the CSS file is imported
+import BaseUrl from '../BaseUrl';
 
 const Disclaimer = () => {
     const navigate = useNavigate();
@@ -21,7 +22,36 @@ const Disclaimer = () => {
         }
     }, [timeLeft]);
 
-    const handleNext = () => {
+    async function addConditionTwoClick(prolificId) {
+        const timestamp = new Date().toISOString(); // Get the current timestamp in ISO format
+        try {
+          const response = await fetch(`${BaseUrl}/api/users/${prolificId}/condition-two-click`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ timestamp }), // Send the timestamp in the request body
+          });
+      
+          if (!response.ok) {
+            throw new Error('Failed to add condition two click');
+          }
+      
+          const data = await response.json();
+          // console.log(data.message); // Handle the response as needed
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      }
+
+    const handleNext = async () => {
+        const prolificId = localStorage.getItem('prolificId'); // Retrieve prolificId from localStorage
+        if (!prolificId) {
+            return;
+        }
+
+        addConditionTwoClick(prolificId);
+
         navigate('/fridgecomparison');
     };
 

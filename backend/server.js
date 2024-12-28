@@ -139,6 +139,10 @@ const userSchema = new mongoose.Schema({
     type: [Date], // Array of dates
     default: [],
   },
+  conditionTwoClick: {
+    type: [Date], // Array of dates
+    default: [],
+  },
   shuffledFridges: {
     type: [[String]], // Matrix to store arrays of fridge nameId strings
     default: [],
@@ -406,6 +410,30 @@ app.patch('/api/users/:prolificId/select-fridge-click', async (req, res) => {
     res.status(200).json({ message: 'Select fridge click timestamp added successfully', user });
   } catch (error) {
     console.error('Error updating selectFridgeClick:', error);
+    res.status(500).json({ message: 'Failed to update selectFridgeClick' });
+  }
+});
+
+// API route to add a timestamp to conditionTwoClick
+app.patch('/api/users/:prolificId/condition-two-click', async (req, res) => {
+  const { prolificId } = req.params;
+  const { timestamp } = req.body; // Expecting timestamp in the request body
+
+  try {
+    // Find the user by prolificId
+    const user = await User.findOne({ prolificId });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Add the provided timestamp to the selectFridgeClick array
+    user.conditionTwoClick.push(new Date(timestamp));
+
+    await user.save();
+
+    res.status(200).json({ message: 'Select fridge click timestamp added successfully', user });
+  } catch (error) {
+    console.error('Error updating conditionTwoClick:', error);
     res.status(500).json({ message: 'Failed to update selectFridgeClick' });
   }
 });

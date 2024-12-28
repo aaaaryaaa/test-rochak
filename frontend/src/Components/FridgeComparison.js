@@ -214,9 +214,14 @@ const FridgeComparison = () => {
 
   return (
     <div className="p-4">
-      <button onClick={handleGoBack} className="bg-blue-500 text-[2rem] text-white py-2 px-4 rounded hover:bg-gray-400 mt-4">
-        🔙 to selection
-      </button>
+      <div className='flex gap-20 p-5'>
+        <button onClick={handleGoBack} className="bg-blue-500 text-[2rem] text-white py-2 px-4 rounded hover:bg-gray-400 mt-4 text-nowrap">
+          🔙 to selection
+        </button>
+        <div className='pt-3'>
+          <p className='text-2xl font-semibold leading-relaxed'>You can choose from the options below, or return to the options page (using the button on the left) to adjust the models you are comparing.</p>
+        </div>
+      </div>
       <div className="overflow-x-auto mt-6">
         <table className="min-w-full bg-white border border-gray-200">
           <thead>

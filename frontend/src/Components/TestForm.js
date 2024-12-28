@@ -41,8 +41,8 @@ const TestForm = () => {
       fridgePurchase: '',
       MC1brandInnovative: '',       // Added for MC1
       MC2frostByteInfoTime: '',    // Added for MC2
-      AC2readCarefully: '',        // Added for AC2
-      AC2otherReadCarefully: ''
+      // AC2readCarefully: '',        // Added for AC2
+      // AC2otherReadCarefully: ''
     },
     commentOnStudy: ''
   });
@@ -111,7 +111,7 @@ const TestForm = () => {
     }
 
     // Check demographics (if needed)
-    const demographicFields = ['age', 'gender', 'fridgePurchase', 'MC1brandInnovative', 'MC2frostByteInfoTime', 'AC2readCarefully'];
+    const demographicFields = ['age', 'gender', 'fridgePurchase', 'MC1brandInnovative', 'MC2frostByteInfoTime']; // 'AC2readCarefully'];
     for (let field of demographicFields) {
       if (!surveyData.demographics[field]) {
         return false; // Field is empty
@@ -218,7 +218,7 @@ const TestForm = () => {
           alert('Please ensure age is between 18 and 100');
           return;
       }
-      const demographicFields = ['age', 'gender', 'fridgePurchase', 'MC1brandInnovative', 'MC2frostByteInfoTime', 'AC2readCarefully'];
+      const demographicFields = ['age', 'gender', 'fridgePurchase', 'MC1brandInnovative', 'MC2frostByteInfoTime']; //, 'AC2readCarefully'];
       for (let field of demographicFields) {
         if (!surveyData.demographics[field]) {
           alert('Please answer all the questions.');
@@ -445,7 +445,7 @@ const TestForm = () => {
             </div>
 
             {/* AC */}
-            <label className="que block font-medium mt-14 mb-8">If you are reading this question carefully, please select the fourth option from the right.</label>
+            <label className="que block font-medium mt-14 mb-8">If you are reading this question carefully, please select the fourth option from the left.</label>
             <div className="opt flex space-x-4 justify-center">
             <span style={{ marginRight: '0.5rem' }}>Never or seldom</span>
                 {[1, 2, 3, 4, 5].map((value) => (
@@ -699,7 +699,7 @@ const TestForm = () => {
             </div>
 
             {/* MC1: Which of the following brands you find most innovative? */}
-            <label className="que block font-medium mt-7 mb-8">Which of the following brands you find most innovative?</label>
+            <label className="que block font-medium mt-7 mb-8">Which of the following brands is known for its patents and holds a larger number of patents?</label>
             <div className="ans flex flex-col p-1">
               {['FrostByte', 'CoolNest', 'ChillCore', 'PolarPeak'].map((option) => {
                 let className = '';
@@ -747,6 +747,7 @@ const TestForm = () => {
 
             {/* MC2: When did you see the information regarding FrostByte brand? */}
             <label className="que block font-medium mt-14 mb-8">When did you see the information page regarding <span className="frostbyte">FrostByte</span> brand?</label>
+            <img className='w-[20rem] pb-5 ml-5' src='https://res.cloudinary.com/dtffdhycm/image/upload/v1731147953/FB_innovation_ti7thg.jpg' alt="FrostByte Logo"/>
             <div className="ans flex flex-col p-1">
                 {['Before shortlisting the fridges for comparison', 'After shortlisting the fridges for comparison', 'I did not see any information page regarding FrostByte brand'].map((option) => (
                 <label key={`MC2frostByteInfoTime-${option}`} className='p-1'>
@@ -764,7 +765,7 @@ const TestForm = () => {
             </div>
 
             {/* AC2: Read the question carefully */}
-            <label className="que block font-medium mt-14 mb-8">
+            {/* <label className="que block font-medium mt-14 mb-8">
                 Some studies show that over 50% of people don’t carefully read questions. If you are reading this question carefully, please select the box marked ‘other’ and type ‘Consumer Survey’ in the box below. Do not select “predictions of your own behavior.” Thank you for participating and taking the time to read through the questions carefully!
             </label>
             <div className="ans flex flex-col p-1">
@@ -801,7 +802,7 @@ const TestForm = () => {
                     />
                 )}
                 </label>
-            </div>
+            </div> */}
 
             {/* Gender */}
             <label className="que block font-medium mt-14 mb-8">What is your gender?</label>
